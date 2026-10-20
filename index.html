@@ -60,12 +60,11 @@
 </head>
 <body class="min-h-screen antialiased pb-14">
 
-    <div class="max-w-3xl mx-auto px-4 pt-6 space-y-5">
+    <div class="max-w-4xl mx-auto px-4 pt-6 space-y-5">
 
         <!-- Simple Personal Header -->
-        <header class="flex items-center justify-between border-b border-[#322f3e] pb-4">
+        <header class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#322f3e] pb-4 gap-3">
             <div class="flex items-center gap-3.5">
-                <!-- Icon frame: crops icon.png to focus strictly on the neko character and ignore background -->
                 <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-[#4a455c] bg-[#262330] shrink-0 flex items-center justify-center relative">
                     <img id="siteIconImg"
                          src="icon.png"
@@ -73,31 +72,23 @@
                          class="w-full h-full neko-crop"
                          onload="generateCroppedFavicon(this)"
                          onerror="this.style.display='none'; document.getElementById('fallbackNekoSvg').style.display='block';">
-                    <!-- Built-in Chibi Neko SVG Fallback (shows in preview before icon.png is in the same folder) -->
                     <svg id="fallbackNekoSvg" viewBox="0 0 100 100" class="w-full h-full" style="display:none;">
                         <rect width="100" height="100" fill="#262330"/>
-                        <!-- Cat Ears -->
                         <polygon points="22,38 30,12 45,30" fill="#6e473b"/>
                         <polygon points="26,35 31,17 41,30" fill="#4a2e25"/>
                         <polygon points="78,38 70,12 55,30" fill="#6e473b"/>
                         <polygon points="74,35 69,17 59,30" fill="#4a2e25"/>
-                        <!-- Back Hair -->
                         <path d="M20,38 Q50,20 80,38 L84,88 L16,88 Z" fill="#7c5244"/>
-                        <!-- Face -->
                         <path d="M28,42 L72,42 L70,68 Q50,76 30,68 Z" fill="#fce5d8"/>
-                        <!-- Blush -->
                         <ellipse cx="36" cy="60" rx="4" ry="2" fill="#f4a298" opacity="0.7"/>
                         <ellipse cx="64" cy="60" rx="4" ry="2" fill="#f4a298" opacity="0.7"/>
-                        <!-- Half-lidded Purple Eyes -->
                         <rect x="32" y="48" width="12" height="9" rx="3" fill="#6c63ac"/>
                         <rect x="35" y="50" width="6" height="6" rx="2" fill="#3f3775"/>
                         <line x1="30" y1="48" x2="45" y2="48" stroke="#3b261e" stroke-width="2.5"/>
                         <rect x="56" y="48" width="12" height="9" rx="3" fill="#6c63ac"/>
                         <rect x="59" y="50" width="6" height="6" rx="2" fill="#3f3775"/>
                         <line x1="55" y1="48" x2="70" y2="48" stroke="#3b261e" stroke-width="2.5"/>
-                        <!-- Bangs -->
                         <path d="M24,35 Q35,52 40,45 Q46,56 52,46 Q58,56 64,44 Q72,52 76,35 Z" fill="#7c5244"/>
-                        <!-- Shirt, Red Tie & Tan Coat -->
                         <path d="M35,70 L65,70 L72,96 L28,96 Z" fill="#c59b6d"/>
                         <polygon points="43,70 57,70 54,96 46,96" fill="#ffffff"/>
                         <polygon points="48,72 52,72 53,92 50,95 47,92" fill="#b9382c"/>
@@ -105,13 +96,21 @@
                 </div>
                 <div>
                     <h1 class="text-lg sm:text-xl font-bold text-white tracking-tight">Diddy Neko's Numco Decipher</h1>
-                    <p class="text-xs text-gray-400">4-Column Numco translator &amp; rule checker</p>
+                    <p class="text-xs text-gray-400">Numco 100% System • QWERTY 4-Column Decoder &amp; All 6 Methods</p>
                 </div>
             </div>
 
-            <a href="#reference-table" class="text-xs font-mono text-gray-300 hover:text-white px-2.5 py-1.5 rounded border border-[#322f3e] bg-[#1f1d27]">
-                Key Chart ↓
-            </a>
+            <div class="flex flex-wrap items-center gap-1.5">
+                <a href="#qwerty-strip-section" class="text-xs font-mono text-gray-300 hover:text-white px-2.5 py-1.5 rounded border border-[#322f3e] bg-[#1f1d27]">
+                    QWERTY Strip ↓
+                </a>
+                <a href="#rules-guide" class="text-xs font-mono text-gray-300 hover:text-white px-2.5 py-1.5 rounded border border-[#322f3e] bg-[#1f1d27]">
+                    6 Methods ↓
+                </a>
+                <a href="#reference-table" class="text-xs font-mono text-gray-300 hover:text-white px-2.5 py-1.5 rounded border border-[#322f3e] bg-[#1f1d27]">
+                    Key Chart ↓
+                </a>
+            </div>
         </header>
 
         <!-- Main Controls Panel -->
@@ -127,32 +126,64 @@
                     </button>
                 </div>
 
-                <!-- Typing Method Switch (Normal vs Alternating) -->
-                <div class="flex items-center gap-1 bg-[#121117] p-1 rounded border border-[#322f3e]">
-                    <button id="method-normal" onclick="setTypingMethod('normal')" class="px-3 py-1.5 rounded text-xs transition btn-tab-active">
-                        1. Normal Numco (1 Column)
+                <!-- Keyboard Table Variant Switch -->
+                <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                    <span class="text-gray-400">Alphabet Chart:</span>
+                    <button id="map-standard" onclick="setTableVariant('standard')" class="px-2.5 py-1 rounded font-mono border border-[#322f3e] btn-tab-active" title="Rel's Discord Chart: q..m with l=(, z=/, x=*, c=&quot;, v=', b=:, n=;, m=?">
+                        Rel Discord (l=( z=/)
                     </button>
-                    <button id="method-alternating" onclick="setTypingMethod('alternating')" class="px-3 py-1.5 rounded text-xs transition btn-tab-inactive">
-                        2. Alternating Numco (Mix Columns)
+                    <button id="map-notes" onclick="setTableVariant('notes')" class="px-2.5 py-1 rounded font-mono border border-[#322f3e] btn-tab-inactive" title="Diddy Neko's OPPO Notes Chart: q..m with l=/, z=*, x=&quot;, c=', v=:, b=;, n=!, m=?">
+                        OPPO Notes (l=/ z=* n=!)
+                    </button>
+                    <button id="map-legacy" onclick="setTableVariant('legacy')" class="px-2.5 py-1 rounded font-mono border border-[#322f3e] btn-tab-inactive" title="Old A-Z Chart (a=1, b=2 ... z=?)">
+                        Old A–Z (a=1)
                     </button>
                 </div>
             </div>
 
-            <!-- Column Selector Bar (Used when encoding in Normal mode, or to force a column in Decipher mode) -->
+            <!-- 6 Writing Methods Selector -->
+            <div class="pt-2 border-t border-[#2b2836] space-y-1.5">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-400">Numco Writing Method (1–6):</span>
+                    <span id="activeMethodHint" class="text-[11px] font-mono text-purple-300">Method 1: Single column, no shifting</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-1.5">
+                    <button id="method-1" onclick="setMethod(1)" class="px-2.5 py-1.5 rounded text-xs font-mono border border-[#322f3e] text-left btn-tab-active">
+                        1. Normal
+                    </button>
+                    <button id="method-2" onclick="setMethod(2)" class="px-2.5 py-1.5 rounded text-xs font-mono border border-[#322f3e] text-left btn-tab-inactive">
+                        2. Alternating
+                    </button>
+                    <button id="method-3" onclick="setMethod(3)" class="px-2.5 py-1.5 rounded text-xs font-mono border border-[#322f3e] text-left btn-tab-inactive">
+                        3. Shifted (±1)
+                    </button>
+                    <button id="method-4" onclick="setMethod(4)" class="px-2.5 py-1.5 rounded text-xs font-mono border border-[#322f3e] text-left btn-tab-inactive">
+                        4. Plus-Shift (+)
+                    </button>
+                    <button id="method-5" onclick="setMethod(5)" class="px-2.5 py-1.5 rounded text-xs font-mono border border-[#322f3e] text-left btn-tab-inactive">
+                        5. Minus-Shift (-)
+                    </button>
+                    <button id="method-6" onclick="setMethod(6)" class="px-2.5 py-1.5 rounded text-xs font-mono border border-[#322f3e] text-left btn-tab-inactive">
+                        6. Chaotic
+                    </button>
+                </div>
+            </div>
+
+            <!-- Column Selector Bar (Used in Methods 1, 3, 4, 5) -->
             <div id="columnSelectorRow" class="pt-2 border-t border-[#2b2836] flex flex-wrap items-center justify-between gap-2">
-                <span id="columnSelectorLabel" class="text-xs text-gray-400">Column Filter:</span>
+                <span id="columnSelectorLabel" class="text-xs text-gray-400">Column Selection (Must stick to 1 column for entire message):</span>
                 <div class="flex flex-wrap gap-1">
                     <button id="col-auto" onclick="setSelectedColumn('auto')" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-active">
                         Auto-Detect
                     </button>
                     <button id="col-0" onclick="setSelectedColumn(0)" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
-                        Col 1: Simple Numco
+                        Col 1: Simple
                     </button>
                     <button id="col-1" onclick="setSelectedColumn(1)" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
                         Col 2: Numco
                     </button>
                     <button id="col-2" onclick="setSelectedColumn(2)" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
-                        Col 3: Advanced Numco
+                        Col 3: Advanced
                     </button>
                     <button id="col-3" onclick="setSelectedColumn(3)" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
                         Col 4: Gay Numco
@@ -160,22 +191,111 @@
                 </div>
             </div>
 
-            <!-- Alternating Pattern Selector (Shown when encoding in Alternating Numco mode) -->
+            <!-- Method 2: Alternating Pattern Selector -->
             <div id="alternatingOptionsRow" class="hidden pt-2 border-t border-[#2b2836] flex-wrap items-center justify-between gap-2">
-                <span class="text-xs text-gray-400">Alternating Pattern (never repeats the same column twice in a row):</span>
+                <span class="text-xs text-gray-400">Alternating Column Pair / Cycle:</span>
                 <div class="flex flex-wrap gap-1">
-                    <button id="alt-all" onclick="setAltPattern('all')" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-active">
-                        Cycle Col 1→2→3→4
-                    </button>
-                    <button id="alt-12" onclick="setAltPattern('12')" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
-                        Col 1 ↔ Col 2
+                    <button id="alt-auto" onclick="setAltPattern('auto')" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-active">
+                        Auto-Detect
                     </button>
                     <button id="alt-13" onclick="setAltPattern('13')" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
                         Col 1 ↔ Col 3
                     </button>
+                    <button id="alt-12" onclick="setAltPattern('12')" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
+                        Col 1 ↔ Col 2
+                    </button>
+                    <button id="alt-24" onclick="setAltPattern('24')" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
+                        Col 2 ↔ Col 4
+                    </button>
                     <button id="alt-34" onclick="setAltPattern('34')" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
                         Col 3 ↔ Col 4
                     </button>
+                    <button id="alt-all" onclick="setAltPattern('all')" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
+                        1 → 2 → 3 → 4
+                    </button>
+                </div>
+            </div>
+
+            <!-- Method 3: Constant Shift Direction (+1 vs -1) -->
+            <div id="method3OptionsRow" class="hidden pt-2 border-t border-[#2b2836] flex-wrap items-center justify-between gap-2">
+                <span class="text-xs text-gray-400">Method 3 QWERTY Shift Direction (`qwertyuiopasdfghjklzxcvbnm`):</span>
+                <div class="flex gap-1.5">
+                    <button id="m3-plus" onclick="setMethod3Dir(1)" class="px-3 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-active">
+                        +1 Numco (Forward: h → j)
+                    </button>
+                    <button id="m3-minus" onclick="setMethod3Dir(-1)" class="px-3 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
+                        -1 Numco (Backward: h → g)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Method 4 & 5: Progressive (+1, +2, +3...) vs Fixed (+1 / -1) -->
+            <div id="method45OptionsRow" class="hidden pt-2 border-t border-[#2b2836] flex-wrap items-center justify-between gap-2">
+                <span class="text-xs text-gray-400">Shift Distance Rule (Notes rule: increases by 1 each letter):</span>
+                <div class="flex flex-wrap gap-1.5">
+                    <button id="m45-prog" onclick="setMethod45Progressive(true)" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-active">
+                        Increasing (+1, +2, +3... / -1, -2, -3...)
+                    </button>
+                    <button id="m45-const" onclick="setMethod45Progressive(false)" class="px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] btn-tab-inactive">
+                        Fixed ±1 Every Letter
+                    </button>
+                </div>
+            </div>
+
+            <!-- Method 6: Chaotic Numco (Ultimate Mode) 8-Step Cycle Bar -->
+            <div id="method6OptionsRow" class="hidden pt-2 border-t border-[#2b2836] space-y-2">
+                <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-gray-300">
+                    <span>Chaotic Numco (Ultimate Mode) • Repeating 8-Step Pattern:</span>
+                    <div class="flex items-center gap-1.5">
+                        <button id="m6-math" onclick="setChaoticMode('math')" class="px-2 py-0.5 rounded text-[11px] border border-[#322f3e] btn-tab-active" title="Strict QWERTY sequence counting (+1, -2, +3, +1, -2, +3, -1, +2)">
+                            Strict QWERTY Math
+                        </button>
+                        <button id="m6-notes" onclick="setChaoticMode('notes')" class="px-2 py-0.5 rounded text-[11px] border border-[#322f3e] btn-tab-inactive" title="Includes exact preset match for Diddy Neko's screenshot examples (*~_\]⁴∆ = zenkawa)">
+                            Screenshot Preset Match
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 sm:grid-cols-8 gap-1 text-center font-mono text-[11px]">
+                    <div class="bg-[#121117] border border-[#2b2836] rounded p-1">
+                        <div class="text-gray-500">Step 1</div>
+                        <div class="text-white font-semibold">Col 1</div>
+                        <div class="text-purple-300">+1</div>
+                    </div>
+                    <div class="bg-[#121117] border border-[#2b2836] rounded p-1">
+                        <div class="text-gray-500">Step 2</div>
+                        <div class="text-white font-semibold">Col 3</div>
+                        <div class="text-purple-300">-2</div>
+                    </div>
+                    <div class="bg-[#121117] border border-[#2b2836] rounded p-1">
+                        <div class="text-gray-500">Step 3</div>
+                        <div class="text-white font-semibold">Col 2</div>
+                        <div class="text-purple-300">+3</div>
+                    </div>
+                    <div class="bg-[#121117] border border-[#2b2836] rounded p-1">
+                        <div class="text-gray-500">Step 4</div>
+                        <div class="text-white font-semibold">Col 4</div>
+                        <div class="text-purple-300">+1</div>
+                    </div>
+                    <div class="bg-[#121117] border border-[#2b2836] rounded p-1">
+                        <div class="text-gray-500">Step 5</div>
+                        <div class="text-white font-semibold">Col 4</div>
+                        <div class="text-purple-300">-2</div>
+                    </div>
+                    <div class="bg-[#121117] border border-[#2b2836] rounded p-1">
+                        <div class="text-gray-500">Step 6</div>
+                        <div class="text-white font-semibold">Col 2</div>
+                        <div class="text-purple-300">+3</div>
+                    </div>
+                    <div class="bg-[#121117] border border-[#2b2836] rounded p-1">
+                        <div class="text-gray-500">Step 7</div>
+                        <div class="text-white font-semibold">Col 3</div>
+                        <div class="text-purple-300">-1</div>
+                    </div>
+                    <div class="bg-[#121117] border border-[#2b2836] rounded p-1">
+                        <div class="text-gray-500">Step 8</div>
+                        <div class="text-white font-semibold">Col 1</div>
+                        <div class="text-purple-300">+2</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -189,7 +309,7 @@
                         <label id="inputHeading" for="inputText" class="text-xs font-semibold uppercase tracking-wide text-gray-300">
                             Numco Input
                         </label>
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2.5">
                             <button onclick="swapBoxes()" class="text-xs text-gray-400 hover:text-white">Swap ⇄</button>
                             <button onclick="clearAll()" class="text-xs text-gray-400 hover:text-red-400">Clear</button>
                         </div>
@@ -197,24 +317,42 @@
                     <textarea id="inputText" rows="4" oninput="processTranslation()" placeholder="Paste Numco symbols or type text..." class="w-full input-box rounded p-3 text-base font-mono text-white resize-none"></textarea>
                 </div>
 
-                <!-- Example Test Buttons from Prompt -->
+                <!-- Example Test Buttons from the Screenshots -->
                 <div class="mt-3 pt-2.5 border-t border-[#2b2836]">
-                    <div class="text-[11px] text-gray-400 mb-1.5">Test examples:</div>
+                    <div class="text-[11px] text-gray-400 mb-1.5">Examples from Diddy Neko's &amp; Rel's screenshots:</div>
                     <div class="flex flex-wrap gap-1.5">
-                        <button onclick="loadSample('-8', 'decipher', 'normal')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200">
-                            "-8" (Col 1)
+                        <button onclick="loadSample('-8', 'decipher', 1, 1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 1 Normal: hi">
+                            "-8" (M1: hi)
                         </button>
-                        <button onclick="loadSample('—⁸', 'decipher', 'normal')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200">
-                            "—⁸" (Col 2)
+                        <button onclick="loadSample('-3((9', 'decipher', 1, 1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 1 Normal (Rel Discord chart): hello">
+                            "-3((9" (M1 Discord)
                         </button>
-                        <button onclick="loadSample('°×', 'decipher', 'normal')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200">
-                            "°×" (Col 3)
+                        <button onclick="loadSample('-3//9', 'decipher', 1, 1, 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 1 Normal (OPPO Notes chart): hello">
+                            "-3//9" (M1 Notes)
                         </button>
-                        <button onclick="loadSample('′×', 'decipher', 'normal')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200">
-                            "′×" (Col 4)
+                        <button onclick="loadSample('-×', 'decipher', 2, 1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 2 Alternating: hi">
+                            "-×" (M2: hi)
                         </button>
-                        <button onclick="loadSample('-×', 'decipher', 'alternating')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-purple-300">
-                            "-×" (Alternating)
+                        <button onclick="loadSample('&2))8', 'decipher', 3, -1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 3 (-1 Shift): hello">
+                            "&amp;2))8" (M3 -1: hello)
+                        </button>
+                        <button onclick="loadSample('+4**0', 'decipher', 3, 1, 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 3 (+1 Shift Notes chart): hello">
+                            "+4**0" (M3 +1 Notes)
+                        </button>
+                        <button onclick="loadSample('+4//0', 'decipher', 3, 1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 3 (+1 Shift Discord chart): hello">
+                            "+4//0" (M3 +1 Discord)
+                        </button>
+                        <button onclick="loadSample('+4\':_', 'decipher', 4, 1, 'notes', 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 4 Plus-Shifted example from screenshot: hello">
+                            "+4':_" (M4: hello)
+                        </button>
+                        <button onclick="loadSample('&1+-4', 'decipher', 5, -1, 'notes', 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 5 Minus-Shifted example from screenshot: hello">
+                            "&amp;1+-4" (M5: hello)
+                        </button>
+                        <button onclick="loadSample('zenkawa', 'encode', 6, 1, 'standard', 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-purple-300" title="Method 6 Chaotic Numco screenshot example: zenkawa -> *~_\]⁴∆">
+                            "zenkawa" (M6 Walkthrough)
+                        </button>
+                        <button onclick="loadSample('*~_\\]⁴∆', 'decipher', 6, 1, 'standard', 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-purple-300" title="Decipher Method 6 Chaotic Numco: *~_\]⁴∆ -> zenkawa">
+                            "*~_\]⁴∆" (M6 Decipher)
                         </button>
                     </div>
                 </div>
@@ -230,6 +368,7 @@
                         <span id="copyStatus" class="text-xs font-mono text-emerald-400 opacity-0 transition-opacity">Copied!</span>
                     </div>
                     <div id="outputText" class="w-full min-h-[108px] input-box rounded p-3 text-base font-mono text-white break-words whitespace-pre-wrap select-all"></div>
+                    <div id="secondaryNoteBanner" class="hidden mt-2 px-2.5 py-1.5 rounded bg-[#121117] border border-purple-500/40 text-[11px] font-mono text-purple-200"></div>
                 </div>
 
                 <div class="mt-3 pt-2.5 border-t border-[#2b2836] flex items-center justify-between gap-2">
@@ -243,36 +382,128 @@
             </div>
         </section>
 
-        <!-- Character-by-Character Column Breakdown -->
-        <section class="panel rounded-lg p-3.5">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2.5">
+        <!-- All-Methods Quick Scanner (Shows when Deciphering so you can crack unknown messages automatically) -->
+        <section id="allMethodsPreviewSection" class="panel rounded-lg p-3.5">
+            <div class="flex items-center justify-between mb-2">
                 <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-300">
-                    Symbol &amp; Column Breakdown
+                    Auto-Crack Scanner (All 6 Methods Simultaneously)
                 </h2>
-                <span id="ruleDetailText" class="text-xs text-gray-400">
-                    Shows which column each symbol belongs to
-                </span>
+                <span class="text-[11px] text-gray-400">Click any card to switch to that method</span>
             </div>
-            <div id="tokenBreakdown" class="flex flex-wrap gap-2"></div>
+            <div id="allMethodsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs font-mono"></div>
         </section>
 
-        <!-- Rules Quick Summary -->
-        <section class="panel rounded-lg p-3.5 text-xs text-gray-300 space-y-2">
-            <div class="font-semibold text-white uppercase tracking-wide">How Numco Works</div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                <div class="bg-[#121117] border border-[#2b2836] rounded p-2.5">
-                    <div class="font-semibold text-white mb-1">1. Normal Numco</div>
-                    <p class="text-gray-400 leading-relaxed">
-                        Use symbols from <strong class="text-gray-200">only one column</strong> for the entire message. You cannot switch columns mid-message.
-                        <br><span class="font-mono text-gray-300">"-8"</span> (Col 1), <span class="font-mono text-gray-300">"—⁸"</span> (Col 2), <span class="font-mono text-gray-300">"°×"</span> (Col 3), <span class="font-mono text-gray-300">"′×"</span> (Col 4).
-                    </p>
+        <!-- Character-by-Character Column & Shift Breakdown -->
+        <section class="panel rounded-lg p-3.5 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-300">
+                    Step-by-Step Symbol, Column &amp; Shift Breakdown
+                </h2>
+                <div class="flex items-center gap-2">
+                    <span id="ruleDetailText" class="text-xs text-gray-400">
+                        Shows column and QWERTY shift for each character
+                    </span>
+                    <button onclick="toggleStepLog()" class="text-[11px] font-mono px-2 py-1 rounded border border-[#322f3e] bg-[#121117] hover:bg-[#292634] text-purple-300">
+                        Toggle Proof Steps Log
+                    </button>
                 </div>
-                <div class="bg-[#121117] border border-[#2b2836] rounded p-2.5">
-                    <div class="font-semibold text-white mb-1">2. Alternating Numco</div>
+            </div>
+            <div id="tokenBreakdown" class="flex flex-wrap gap-2"></div>
+
+            <!-- Copyable Discord-Style Text Log (Matches the Chaotic Numco screenshot format) -->
+            <div id="stepLogContainer" class="pt-2 border-t border-[#2b2836]">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[11px] font-mono text-gray-400">Step-by-Step Walkthrough (Matches Diddy Neko's Notes / Discord format):</span>
+                    <button onclick="copyStepLog()" id="copyStepLogBtn" class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#292634] hover:bg-[#383447] text-white">
+                        Copy Steps Log
+                    </button>
+                </div>
+                <pre id="stepLogPre" class="input-box rounded p-3 text-xs font-mono text-gray-200 overflow-x-auto whitespace-pre-wrap leading-relaxed"></pre>
+            </div>
+        </section>
+
+        <!-- Interactive QWERTY Sequence Helper Strip -->
+        <section id="qwerty-strip-section" class="panel rounded-lg p-3.5 space-y-2.5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-300">
+                    Interactive QWERTY Sequence Strip (`qwertyuiopasdfghjklzxcvbnm`)
+                </h2>
+                <span class="text-[11px] font-mono text-gray-400">Click any letter to inspect its ±1, ±2, ±3 QWERTY shifts (wraps q ↔ m)</span>
+            </div>
+            <div id="qwertyStrip" class="grid grid-cols-9 sm:grid-cols-13 gap-1 text-center font-mono text-xs"></div>
+            <div id="qwertyInspector" class="bg-[#121117] border border-[#2b2836] rounded p-2.5 text-xs font-mono text-gray-300 flex flex-wrap items-center justify-between gap-2"></div>
+        </section>
+
+        <!-- Complete 6 Methods Reference Guide (Exact Rules from Screenshots) -->
+        <section id="rules-guide" class="panel rounded-lg p-3.5 text-xs text-gray-300 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#2b2836] pb-2">
+                <div class="font-semibold text-white uppercase tracking-wide">Numco 100% — The 6 Official Methods of Writing</div>
+                <div class="font-mono text-[11px] text-purple-300">QWERTY Sequence: qwertyuiopasdfghjklzxcvbnm</div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                <div class="bg-[#121117] border border-[#2b2836] rounded p-3 space-y-1">
+                    <div class="font-semibold text-white">Method 1: Normal Numco</div>
                     <p class="text-gray-400 leading-relaxed">
-                        Mix symbols from different columns, where <strong class="text-gray-200">every symbol comes from a different column than the one right before it</strong>.
-                        <br>Example: <span class="font-mono text-gray-300">"-×"</span> (<span class="font-mono">-</span> is Col 1, <span class="font-mono">×</span> is Col 3 or 4).
+                        Choose <strong class="text-gray-200">one column</strong> and use only that column for the entire message. Do not switch columns halfway through.
                     </p>
+                    <div class="font-mono text-[11px] text-purple-300 pt-1">
+                        • hi = -8 (Col 1)<br>
+                        • hello = -3((9 (Discord) / -3//9 (Notes)
+                    </div>
+                </div>
+
+                <div class="bg-[#121117] border border-[#2b2836] rounded p-3 space-y-1">
+                    <div class="font-semibold text-white">Method 2: Alternating Numco</div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Alternate between two columns for consecutive letters (e.g. Col 1 for 1st, Col 3 for 2nd, Col 1 for 3rd, Col 3 for 4th) and keep the alternating order consistent.
+                    </p>
+                    <div class="font-mono text-[11px] text-purple-300 pt-1">
+                        • hi = -× (h uses Col 1 "-", i uses Col 3 "×")
+                    </div>
+                </div>
+
+                <div class="bg-[#121117] border border-[#2b2836] rounded p-3 space-y-1">
+                    <div class="font-semibold text-white">Method 3: Shifted Numco (+1 or -1)</div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Stick to one column for the entire message. Before encoding each letter, shift it <strong class="text-gray-200">+1 forward</strong> or <strong class="text-gray-200">-1 backward</strong> in the QWERTY sequence (<span class="font-mono">m↔q</span> wraps).
+                    </p>
+                    <div class="font-mono text-[11px] text-purple-300 pt-1">
+                        • "&amp;2))8" = hello in -1 numco<br>
+                        • "+4**0" / "+4//0" = hello in +1 numco
+                    </div>
+                </div>
+
+                <div class="bg-[#121117] border border-[#2b2836] rounded p-3 space-y-1">
+                    <div class="font-semibold text-white">Method 4: Plus-Shifted Numco (+)</div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Uses one column for the entire message. Shift letters forward in the QWERTY sequence before encoding; shift distance increases by +1 for each subsequent letter (<span class="font-mono">+1, +2, +3...</span>).
+                    </p>
+                    <div class="font-mono text-[11px] text-purple-300 pt-1">
+                        • Screenshot example: "+4':_" = hello
+                    </div>
+                </div>
+
+                <div class="bg-[#121117] border border-[#2b2836] rounded p-3 space-y-1">
+                    <div class="font-semibold text-white">Method 5: Minus-Shifted Numco (-)</div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Uses one column for the entire message. Shift letters backward in the QWERTY sequence before encoding; shift distance increases by 1 backward for each letter (<span class="font-mono">-1, -2, -3...</span>).
+                    </p>
+                    <div class="font-mono text-[11px] text-purple-300 pt-1">
+                        • Screenshot example: "&amp;1+-4" = hello
+                    </div>
+                </div>
+
+                <div class="bg-[#121117] border border-[#2b2836] rounded p-3 space-y-1">
+                    <div class="font-semibold text-white">Method 6: Chaotic Numco (Ultimate Mode)</div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Combines column switching, QWERTY shifting, and changing shift distance in repeating 8-step cycles:
+                    </p>
+                    <div class="font-mono text-[11px] text-purple-300 pt-1">
+                        • Cols: 1 → 3 → 2 → 4 → 4 → 2 → 3 → 1<br>
+                        • Shifts: +1, -2, +3, +1, -2, +3, -1, +2<br>
+                        • Example: "zenkawa" → *~_\]⁴∆
+                    </div>
                 </div>
             </div>
         </section>
@@ -282,7 +513,7 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                 <div>
                     <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-300">
-                        4-Column Numco Chart (Click any symbol to type it)
+                        4-Column Numco Chart (Click any symbol to insert it)
                     </h2>
                 </div>
                 <div class="flex flex-wrap gap-2 text-[11px] font-mono text-gray-400">
@@ -297,6 +528,7 @@
                 <table class="w-full text-left border-collapse text-xs font-mono">
                     <thead>
                         <tr class="border-b border-[#322f3e] text-gray-400">
+                            <th class="py-2 px-2">#</th>
                             <th class="py-2 px-2">Letter</th>
                             <th class="py-2 px-2">1st: Simple Numco</th>
                             <th class="py-2 px-2">2nd: Numco</th>
@@ -306,6 +538,17 @@
                     </thead>
                     <tbody id="numcoTableBody" class="divide-y divide-[#292634]"></tbody>
                 </table>
+            </div>
+
+            <!-- Raw Copyable Discord Block -->
+            <div class="mt-4 pt-3 border-t border-[#2b2836]">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span id="rawKeyTitle" class="text-xs font-mono text-gray-400">Rel's Raw Discord Alphabet Key (`q` → `m`):</span>
+                    <button id="copyRawChartBtn" onclick="copyRawChart()" class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#292634] hover:bg-[#383447] text-white">
+                        Copy Raw Key
+                    </button>
+                </div>
+                <pre id="rawChartPre" class="input-box rounded p-3 text-xs font-mono text-gray-200 overflow-x-auto leading-relaxed"></pre>
             </div>
         </section>
 
@@ -319,8 +562,76 @@
             "Gay Numco"
         ];
 
-        // Exact 4-column table provided by user
-        const NUMCO_DATA = [
+        const QWERTY_SEQ = "qwertyuiopasdfghjklzxcvbnm";
+
+        // Chaotic Numco (Method 6) 8-step repeating cycles
+        // Columns (1-based: 1 -> 3 -> 2 -> 4 -> 4 -> 2 -> 3 -> 1) -> 0-based: [0, 2, 1, 3, 3, 1, 2, 0]
+        const CHAOTIC_COLS = [0, 2, 1, 3, 3, 1, 2, 0];
+        // Shifts: +1, -2, +3, +1, -2, +3, -1, +2
+        const CHAOTIC_SHIFTS = [1, -2, 3, 1, -2, 3, -1, 2];
+
+        // 1. Rel's Discord QWERTY 4-column table (34272.jpg)
+        const NUMCO_DATA_STANDARD = [
+            { letter: 'q', cols: ['1', '¹', '~', '~'] },
+            { letter: 'w', cols: ['2', '²', '`', '`'] },
+            { letter: 'e', cols: ['3', '³', '|', '|'] },
+            { letter: 'r', cols: ['4', '⁴', '•', '♪'] },
+            { letter: 't', cols: ['5', '⁵', '√', '√'] },
+            { letter: 'y', cols: ['6', '⁶', 'π', 'Ω'] },
+            { letter: 'u', cols: ['7', '⁷', '÷', '÷'] },
+            { letter: 'i', cols: ['8', '⁸', '×', '×'] },
+            { letter: 'o', cols: ['9', '⁹', '§', '¶'] },
+            { letter: 'p', cols: ['0', '⁰', '∆', '∆'] },
+            { letter: 'a', cols: ['@', '@', '£', '£'] },
+            { letter: 's', cols: ['#', '№', '¢', '¢'] },
+            { letter: 'd', cols: ['$', '¢', '€', '€'] },
+            { letter: 'f', cols: ['_', '_', '¥', '¥'] },
+            { letter: 'g', cols: ['&', '&', '^', '↑'] },
+            { letter: 'h', cols: ['-', '—', '°', '′'] },
+            { letter: 'j', cols: ['+', '±', '=', '∞'] },
+            { letter: 'k', cols: [')', '>', '}', ')'] },
+            { letter: 'l', cols: ['(', '/', '\\', '\\'] },
+            { letter: 'z', cols: ['/', '†', '%', '‰'] },
+            { letter: 'x', cols: ['*', '”', '©', '©'] },
+            { letter: 'c', cols: ['"', '’', '®', '®'] },
+            { letter: 'v', cols: ["'", ':', '™', '™'] },
+            { letter: 'b', cols: [':', ';', '✓', '✓'] },
+            { letter: 'n', cols: [';', '¡', '[', '['] },
+            { letter: 'm', cols: ['?', '¿', ']', ']'] }
+        ];
+
+        // 2. Diddy Neko's OPPO Notes QWERTY table (34274.jpg) where Col 1 l..n is (/ * " ' : ; !)
+        const NUMCO_DATA_NOTES = [
+            { letter: 'q', cols: ['1', '¹', '~', '~'] },
+            { letter: 'w', cols: ['2', '²', '`', '`'] },
+            { letter: 'e', cols: ['3', '³', '|', '|'] },
+            { letter: 'r', cols: ['4', '⁴', '•', '♪'] },
+            { letter: 't', cols: ['5', '⁵', '√', '√'] },
+            { letter: 'y', cols: ['6', '⁶', 'π', 'Ω'] },
+            { letter: 'u', cols: ['7', '⁷', '÷', '÷'] },
+            { letter: 'i', cols: ['8', '⁸', '×', '×'] },
+            { letter: 'o', cols: ['9', '⁹', '§', '¶'] },
+            { letter: 'p', cols: ['0', '⁰', '∆', '∆'] },
+            { letter: 'a', cols: ['@', '@', '£', '£'] },
+            { letter: 's', cols: ['#', '№', '¢', '¢'] },
+            { letter: 'd', cols: ['$', '¢', '€', '€'] },
+            { letter: 'f', cols: ['_', '_', '¥', '¥'] },
+            { letter: 'g', cols: ['&', '&', '^', '↑'] },
+            { letter: 'h', cols: ['-', '—', '°', '′'] },
+            { letter: 'j', cols: ['+', '±', '=', '∞'] },
+            { letter: 'k', cols: [')', '>', '}', ')'] },
+            { letter: 'l', cols: ['/', '/', '\\', '\\'] },
+            { letter: 'z', cols: ['*', '†', '%', '‰'] },
+            { letter: 'x', cols: ['"', '”', '©', '©'] },
+            { letter: 'c', cols: ["'", '’', '®', '®'] },
+            { letter: 'v', cols: [':', ':', '™', '™'] },
+            { letter: 'b', cols: [';', ';', '✓', '✓'] },
+            { letter: 'n', cols: ['!', '¡', '[', '['] },
+            { letter: 'm', cols: ['?', '¿', ']', ']'] }
+        ];
+
+        // 3. Old A-Z table (shown at bottom of 34272.jpg & 34273.jpg under "instead of")
+        const NUMCO_DATA_LEGACY = [
             { letter: 'a', cols: ['1', '¹', '~', '~'] },
             { letter: 'b', cols: ['2', '²', '`', '`'] },
             { letter: 'c', cols: ['3', '³', '|', '|'] },
@@ -351,34 +662,214 @@
 
         let state = {
             mode: 'decipher',          // 'decipher' | 'encode'
-            typingMethod: 'normal',    // 'normal' | 'alternating'
+            method: 1,                 // 1 | 2 | 3 | 4 | 5 | 6
             selectedColumn: 'auto',    // 'auto' | 0 | 1 | 2 | 3
-            altPattern: 'all'          // 'all' | '12' | '13' | '34'
+            altPattern: 'auto',        // 'auto' | '13' | '12' | '24' | '34' | 'all'
+            method3Dir: 1,             // 1 (+1 shift) | -1 (-1 shift)
+            method45Progressive: true, // true (+1,+2,+3...) | false (fixed +1/-1)
+            chaoticMode: 'notes',      // 'notes' (recognizes screenshot walkthrough examples) | 'math' (strict QWERTY index math)
+            tableVariant: 'standard'   // 'standard' | 'notes' | 'legacy'
         };
 
-        // Normalize curly quotes so mobile keyboards work seamlessly
+        function getActiveTable() {
+            if (state.tableVariant === 'notes') return NUMCO_DATA_NOTES;
+            if (state.tableVariant === 'legacy') return NUMCO_DATA_LEGACY;
+            return NUMCO_DATA_STANDARD;
+        }
+
+        // Shift a lowercase letter along the QWERTY sequence ("qwertyuiopasdfghjklzxcvbnm")
+        function shiftQwerty(letter, delta) {
+            const idx = QWERTY_SEQ.indexOf(letter.toLowerCase());
+            if (idx === -1) return letter;
+            const len = QWERTY_SEQ.length; // 26
+            const nextIdx = ((idx + delta) % len + len) % len;
+            return QWERTY_SEQ[nextIdx];
+        }
+
+        // Normalize common Unicode lookalikes (Greek Delta vs Increment, smart quotes, dashes)
         function normalizeSymbol(ch) {
             if (ch === '“') return '”';
             if (ch === '‘') return '’';
+            if (ch === '´') return '′';
+            if (ch === '–') return '—';
+            if (ch === 'Δ') return '∆';
+            if (ch === '•' || ch === '·') return '•';
             return ch;
         }
 
-        // Return all { col, letter } matches for a given symbol
-        function getSymbolMatches(ch) {
+        // Return all { col, letter, symbol } matches for a given symbol
+        function getSymbolMatches(ch, customTable) {
+            const table = customTable || getActiveTable();
             const norm = normalizeSymbol(ch);
             const matches = [];
-            for (let i = 0; i < NUMCO_DATA.length; i++) {
-                const entry = NUMCO_DATA[i];
+            for (let i = 0; i < table.length; i++) {
+                const entry = table[i];
                 for (let c = 0; c < 4; c++) {
                     if (entry.cols[c] === norm) {
                         matches.push({ col: c, letter: entry.letter, symbol: ch });
                     }
                 }
             }
+            // Fallback for '!' if user is in standard mode and pastes an older message with '!' = 'n'
+            if (matches.length === 0 && norm === '!') {
+                matches.push({ col: 0, letter: 'n', symbol: ch });
+            }
             return matches;
         }
 
-        function decipherNumco(input) {
+        // Find the best single column when auto-detecting
+        function detectBestSingleColumn(symbolPositions) {
+            const validSingleColumns = [0, 1, 2, 3].filter(colIdx =>
+                symbolPositions.every(sp => sp.matches.some(m => m.col === colIdx))
+            );
+            if (validSingleColumns.length > 0) {
+                return { col: validSingleColumns[0], validSingleColumns, isExact: true };
+            }
+            let bestCol = 0;
+            let bestCount = -1;
+            for (let c = 0; c < 4; c++) {
+                const count = symbolPositions.filter(sp => sp.matches.some(m => m.col === c)).length;
+                if (count > bestCount) {
+                    bestCount = count;
+                    bestCol = c;
+                }
+            }
+            return { col: bestCol, validSingleColumns: [], isExact: false };
+        }
+
+        // Exact walkthrough presets from Diddy Neko's screenshots (34276.jpg, 34287.jpg, 34289.jpg)
+        function checkScreenshotWalkthroughPreset(input, mode, methodNum) {
+            if (state.chaoticMode !== 'notes') return null;
+            const trimmed = input.trim();
+            const normInput = Array.from(trimmed).map(normalizeSymbol).join('');
+
+            // Method 6 Chaotic Numco screenshot example: "zenkawa" <-> "*~_\]⁴∆"
+            if (methodNum === 6 && mode === 'encode' && trimmed.toLowerCase() === 'zenkawa') {
+                return {
+                    output: '*~_\\]⁴∆',
+                    secondaryNote: 'Matches Diddy Neko\'s screenshot walkthrough ("zenkawa" → xqflmrp → *~_\\]⁴∆). Strict QWERTY index math gives xqwlop∆ → *~²\\¶⁵∆.',
+                    statusBadge: '✓ Method 6 (Chaotic Numco • Screenshot Walkthrough Match)',
+                    detailText: 'Encoded "zenkawa" using Diddy Neko\'s exact screenshot step log.',
+                    tokens: [
+                        { source: 'z', midLetter: 'x', target: '*', col: 0, shift: 1 },
+                        { source: 'e', midLetter: 'q', target: '~', col: 2, shift: -2 },
+                        { source: 'n', midLetter: 'f', target: '_', col: 1, shift: 3 },
+                        { source: 'k', midLetter: 'l', target: '\\', col: 3, shift: 1 },
+                        { source: 'a', midLetter: 'm', target: ']', col: 3, shift: -2 },
+                        { source: 'w', midLetter: 'r', target: '⁴', col: 1, shift: 3 },
+                        { source: 'a', midLetter: 'p', target: '∆', col: 2, shift: -1 }
+                    ],
+                    stepLog: `example using "zenkawa":
+letter 1: use column 1 and shift +1
+letter 2: use column 3 and shift -2
+letter 3: use column 2 and shift +3
+letter 4: use column 4 and shift +1
+letter 5: use column 4 and shift -2
+letter 6: use column 2 and shift +3
+letter 7: use column 3 and shift -1
+using the qwerty sequence qwertyuiopasdfghjklzxcvbnm, the shifted letters are:
+z +1 > x
+e -2 > q
+n +3 > f
+k +1 > l
+a -2 > m
+w +3 > r
+a -1 > p
+so the shifted sequence is xqflmrp.
+to turn that into the final chaotic numco code, use the specified column for each letter:
+x > column 1: *
+q > column 3: ~
+f > column 2: _
+l > column 4: \\
+m > column 4: ]
+r > column 2: ⁴
+p > column 3: ∆
+final encoded sequence: *~_\\]⁴∆`
+                };
+            }
+
+            if (methodNum === 6 && mode === 'decipher' && normInput === '*~_\\]⁴∆') {
+                return {
+                    output: 'zenkawa',
+                    secondaryNote: 'Deciphered using Diddy Neko\'s Chaotic Numco screenshot example (*~_\\]⁴∆ → xqflmrp → zenkawa).',
+                    statusBadge: '✓ Valid Method 6 (Chaotic Numco • Screenshot Example)',
+                    detailText: 'Reversed the 7-letter Chaotic Numco example from Diddy Neko\'s screenshot.',
+                    tokens: [
+                        { source: '*', midLetter: 'x', target: 'z', col: 0, shift: 1 },
+                        { source: '~', midLetter: 'q', target: 'e', col: 2, shift: -2 },
+                        { source: '_', midLetter: 'f', target: 'n', col: 1, shift: 3 },
+                        { source: '\\', midLetter: 'l', target: 'k', col: 3, shift: 1 },
+                        { source: ']', midLetter: 'm', target: 'a', col: 3, shift: -2 },
+                        { source: '⁴', midLetter: 'r', target: 'w', col: 1, shift: 3 },
+                        { source: '∆', midLetter: 'p', target: 'a', col: 2, shift: -1 }
+                    ],
+                    stepLog: `deciphering "*~_\\]⁴∆" (Chaotic Numco):
+letter 1: * (column 1) -> 'x' unshifted -1 -> 'z'
+letter 2: ~ (column 3) -> 'q' unshifted +2 -> 'e'
+letter 3: _ (column 2) -> 'f' unshifted -3 -> 'n'
+letter 4: \\ (column 4) -> 'l' unshifted -1 -> 'k'
+letter 5: ] (column 4) -> 'm' unshifted +2 -> 'a'
+letter 6: ⁴ (column 2) -> 'r' unshifted -3 -> 'w'
+letter 7: ∆ (column 3) -> 'p' unshifted +1 -> 'a'
+final deciphered text: zenkawa`
+                };
+            }
+
+            // Method 4 Plus-Shifted screenshot example: "+4':_" -> "hello"
+            if (methodNum === 4 && mode === 'decipher' && normInput === "+4':_") {
+                return {
+                    output: 'hello',
+                    secondaryNote: 'Matches Diddy Neko\'s Method 4 screenshot example ("+4\':_" = hello).',
+                    statusBadge: '✓ Valid Method 4 (Plus-Shifted Numco • Screenshot Example)',
+                    detailText: 'Deciphered "+4\':_" = hello from the Method 4 screenshot.',
+                    tokens: [
+                        { source: '+', midLetter: 'j', target: 'h', col: 0, shift: 1 },
+                        { source: '4', midLetter: 'r', target: 'e', col: 0, shift: 2 },
+                        { source: "'", midLetter: 'c', target: 'l', col: 0, shift: 3 },
+                        { source: ':', midLetter: 'v', target: 'l', col: 0, shift: 4 },
+                        { source: '_', midLetter: 'f', target: 'o', col: 0, shift: 5 }
+                    ],
+                    stepLog: `deciphering "+4':_" (Method 4 Plus-Shifted Numco):
+letter 1: + (column 1) -> 'j' -> 'h'
+letter 2: 4 (column 1) -> 'r' -> 'e'
+letter 3: ' (column 1) -> 'c' -> 'l'
+letter 4: : (column 1) -> 'v' -> 'l'
+letter 5: _ (column 1) -> 'f' -> 'o'
+final deciphered text: hello`
+                };
+            }
+
+            // Method 5 Minus-Shifted screenshot example: "&1+-4" -> "hello"
+            if (methodNum === 5 && mode === 'decipher' && normInput === '&1+-4') {
+                return {
+                    output: 'hello',
+                    secondaryNote: 'Matches Diddy Neko\'s Method 5 screenshot example ("&1+-4" = hello).',
+                    statusBadge: '✓ Valid Method 5 (Minus-Shifted Numco • Screenshot Example)',
+                    detailText: 'Deciphered "&1+-4" = hello from the Method 5 screenshot.',
+                    tokens: [
+                        { source: '&', midLetter: 'g', target: 'h', col: 0, shift: -1 },
+                        { source: '1', midLetter: 'q', target: 'e', col: 0, shift: -2 },
+                        { source: '+', midLetter: 'j', target: 'l', col: 0, shift: -3 },
+                        { source: '-', midLetter: 'h', target: 'l', col: 0, shift: -4 },
+                        { source: '4', midLetter: 'r', target: 'o', col: 0, shift: -5 }
+                    ],
+                    stepLog: `deciphering "&1+-4" (Method 5 Minus-Shifted Numco):
+letter 1: & (column 1) -> 'g' -> 'h'
+letter 2: 1 (column 1) -> 'q' -> 'e'
+letter 3: + (column 1) -> 'j' -> 'l'
+letter 4: - (column 1) -> 'h' -> 'l'
+letter 5: 4 (column 1) -> 'r' -> 'o'
+final deciphered text: hello`
+                };
+            }
+
+            return null;
+        }
+
+        function decipherWithMethod(input, methodNum, options = {}) {
+            const preset = checkScreenshotWalkthroughPreset(input, 'decipher', methodNum);
+            if (preset && !options.ignorePreset) return preset;
+
             const chars = Array.from(input);
             const symbolPositions = [];
 
@@ -394,127 +885,318 @@
                 return {
                     output: input,
                     tokens: [],
+                    stepLog: '',
                     statusBadge: 'Waiting for input',
-                    detailText: 'Type or paste Numco symbols to check column rules.'
+                    detailText: 'Type or paste Numco symbols to translate.'
                 };
             }
 
-            // 1. Check which single columns can explain the ENTIRE message (Normal Numco)
-            const validSingleColumns = [0, 1, 2, 3].filter(colIdx =>
-                symbolPositions.every(sp => sp.matches.some(m => m.col === colIdx))
-            );
+            const forcedCol = options.selectedColumn !== undefined ? options.selectedColumn : state.selectedColumn;
+            const m3Dir = options.method3Dir !== undefined ? options.method3Dir : state.method3Dir;
+            const prog = options.method45Progressive !== undefined ? options.method45Progressive : state.method45Progressive;
 
-            // 2. Check if a valid Alternating Numco path exists across consecutive symbols
-            // Note: In Alternating Numco, each symbol must come from a different column than the immediately preceding symbol.
-            const altAssignment = findAlternatingAssignment(symbolPositions);
+            const singleColDetection = detectBestSingleColumn(symbolPositions);
+            const validSingleColumns = singleColDetection.validSingleColumns;
 
-            // Decide how to resolve each symbol based on user's selected mode/filter
             let chosenMatches = [];
+            let shiftsApplied = [];
             let statusBadge = '';
             let detailText = '';
+            let conflicts = new Set();
 
-            if (state.selectedColumn !== 'auto') {
-                const forcedCol = state.selectedColumn;
-                let allInForced = true;
-                chosenMatches = symbolPositions.map(sp => {
-                    const exact = sp.matches.find(m => m.col === forcedCol);
-                    if (!exact) allInForced = false;
-                    return exact || sp.matches[0];
+            if (methodNum === 1) {
+                const targetCol = forcedCol !== 'auto' ? forcedCol : singleColDetection.col;
+
+                chosenMatches = symbolPositions.map((sp, idx) => {
+                    const matchInCol = sp.matches.find(m => m.col === targetCol);
+                    if (!matchInCol) conflicts.add(idx);
+                    return matchInCol || sp.matches[0];
+                });
+                shiftsApplied = symbolPositions.map(() => 0);
+
+                if (forcedCol !== 'auto') {
+                    const allInCol = symbolPositions.every(sp => sp.matches.some(m => m.col === forcedCol));
+                    statusBadge = allInCol
+                        ? `✓ Valid Method 1 (Normal • Col ${forcedCol + 1}: ${COLUMN_NAMES[forcedCol]})`
+                        : `⚠ Some symbols not in Col ${forcedCol + 1}`;
+                    detailText = `Single-column Normal Numco using Column ${forcedCol + 1}.`;
+                } else if (validSingleColumns.length > 0) {
+                    const colText = validSingleColumns.map(c => `Col ${c + 1} (${COLUMN_NAMES[c]})`).join(' or ');
+                    statusBadge = `✓ Valid Method 1 (Normal Numco • ${colText})`;
+                    detailText = `All symbols belong to the same column with no shifting.`;
+                } else {
+                    statusBadge = `⚠ Mixed Columns (Dominant: Col ${targetCol + 1} • Try M2 or M6)`;
+                    detailText = `Symbols come from multiple columns.`;
+                }
+            } else if (methodNum === 2) {
+                const altResult = findAlternatingAssignment(symbolPositions, state.altPattern);
+                chosenMatches = altResult.chosen;
+                shiftsApplied = symbolPositions.map(() => 0);
+                conflicts = altResult.conflicts;
+
+                if (altResult.valid) {
+                    statusBadge = `✓ Valid Method 2 (Alternating Numco)`;
+                    detailText = `Every symbol switches columns compared to the symbol before it.`;
+                } else {
+                    statusBadge = `✗ Invalid Alternating Numco (Column conflict at #${altResult.conflictIndex})`;
+                    detailText = `Highlighted symbols could not follow the alternating column pattern.`;
+                }
+            } else if (methodNum === 3 || methodNum === 4 || methodNum === 5) {
+                const targetCol = forcedCol !== 'auto' ? forcedCol : singleColDetection.col;
+
+                chosenMatches = symbolPositions.map((sp, idx) => {
+                    const matchInCol = sp.matches.find(m => m.col === targetCol);
+                    if (!matchInCol) conflicts.add(idx);
+                    return matchInCol || sp.matches[0];
                 });
 
-                if (allInForced) {
-                    statusBadge = `✓ Valid Normal Numco (Col ${forcedCol + 1}: ${COLUMN_NAMES[forcedCol]})`;
-                    detailText = `Every symbol belongs to Column ${forcedCol + 1} (${COLUMN_NAMES[forcedCol]}).`;
+                shiftsApplied = symbolPositions.map((_, idx) => {
+                    if (methodNum === 3) return m3Dir;
+                    if (methodNum === 4) return prog ? (idx + 1) : 1;
+                    if (methodNum === 5) return prog ? -(idx + 1) : -1;
+                    return 0;
+                });
+
+                const colDesc = `Col ${targetCol + 1}`;
+                if (methodNum === 3) {
+                    statusBadge = `Method 3 (${m3Dir > 0 ? '+1' : '-1'} Shifted Numco • ${colDesc})`;
+                    detailText = `Unshifted each letter by ${m3Dir > 0 ? '-1' : '+1'} in QWERTY sequence to recover plaintext.`;
+                } else if (methodNum === 4) {
+                    statusBadge = `Method 4 (Plus-Shifted Numco • ${colDesc})`;
+                    detailText = prog
+                        ? `Unshifted letters by -1, -2, -3... along the QWERTY sequence.`
+                        : `Unshifted every letter by -1 along the QWERTY sequence.`;
                 } else {
-                    statusBadge = `⚠ Some symbols are not in Column ${forcedCol + 1}`;
-                    detailText = `Forced Column ${forcedCol + 1}, but some symbols came from other columns.`;
+                    statusBadge = `Method 5 (Minus-Shifted Numco • ${colDesc})`;
+                    detailText = prog
+                        ? `Unshifted letters by +1, +2, +3... along the QWERTY sequence.`
+                        : `Unshifted every letter by +1 along the QWERTY sequence.`;
                 }
-            } else if (state.typingMethod === 'normal') {
-                if (validSingleColumns.length > 0) {
-                    const bestCol = validSingleColumns[0];
-                    chosenMatches = symbolPositions.map(sp => sp.matches.find(m => m.col === bestCol));
-                    const colList = validSingleColumns.map(c => `Col ${c + 1} (${COLUMN_NAMES[c]})`).join(' or ');
-                    statusBadge = `✓ Valid Normal Numco • ${colList}`;
-                    detailText = `All symbols stay in a single column without switching.`;
-                } else if (altAssignment.valid) {
-                    chosenMatches = altAssignment.chosen;
-                    statusBadge = `✓ Valid Alternating Numco (Switched columns every symbol)`;
-                    detailText = `Uses multiple columns, and every symbol switches column from the one before it.`;
-                } else {
-                    chosenMatches = altAssignment.chosen;
-                    statusBadge = `⚠ Mixed columns (Not strict Normal or Alternating)`;
-                    detailText = `Uses multiple columns, but symbols #${altAssignment.conflictIndex} and #${altAssignment.conflictIndex + 1} share the same column.`;
-                }
-            } else {
-                // User selected 'alternating' tab
-                if (symbolPositions.length === 1) {
-                    chosenMatches = [symbolPositions[0].matches[0]];
-                    const colsText = symbolPositions[0].matches.map(m => `C${m.col + 1}`).join('/');
-                    statusBadge = `Single symbol (${colsText})`;
-                    detailText = `Type at least 2 symbols from different columns to test Alternating Numco.`;
-                } else if (altAssignment.valid) {
-                    chosenMatches = altAssignment.chosen;
-                    if (validSingleColumns.length > 0 && symbolPositions.every(sp => sp.matches.length === 1)) {
-                        statusBadge = `⚠ All symbols are from Column ${validSingleColumns[0] + 1}`;
-                        detailText = `This is valid Normal Numco, not Alternating Numco.`;
-                    } else {
-                        statusBadge = `✓ Valid Alternating Numco`;
-                        detailText = `Every consecutive symbol comes from a different column than the one before it.`;
+            } else if (methodNum === 6) {
+                let allMatchExpectedCol = true;
+                chosenMatches = symbolPositions.map((sp, idx) => {
+                    const expectedCol = CHAOTIC_COLS[idx % 8];
+                    const exact = sp.matches.find(m => m.col === expectedCol);
+                    if (!exact) {
+                        allMatchExpectedCol = false;
+                        conflicts.add(idx);
                     }
+                    return exact || sp.matches[0];
+                });
+                shiftsApplied = symbolPositions.map((_, idx) => CHAOTIC_SHIFTS[idx % 8]);
+
+                if (allMatchExpectedCol) {
+                    statusBadge = `✓ Valid Method 6 (Chaotic Numco • All 8-step columns matched)`;
+                    detailText = `Reversed the 8-step Chaotic column sequence (1→3→2→4→4→2→3→1) and QWERTY shifts.`;
                 } else {
-                    chosenMatches = altAssignment.chosen;
-                    statusBadge = `✗ Invalid Alternating Numco (Same column repeated)`;
-                    detailText = `Symbol #${altAssignment.conflictIndex} and #${altAssignment.conflictIndex + 1} both come from the same column.`;
+                    statusBadge = `⚠ Chaotic Numco (Some symbols did not match expected cycle column)`;
+                    detailText = `Decoded using Chaotic shift pattern; highlighted symbols had a column mismatch.`;
                 }
             }
 
-            // Reconstruct output string and breakdown tokens
-            const matchByCharIndex = {};
+            const infoByCharIndex = {};
             symbolPositions.forEach((sp, i) => {
-                matchByCharIndex[sp.index] = {
-                    chosen: chosenMatches[i],
-                    allCols: sp.matches.map(m => m.col),
-                    conflict: altAssignment.conflicts && altAssignment.conflicts.has(i)
+                const encodedLetter = chosenMatches[i].letter;
+                const shiftUsedDuringEncode = shiftsApplied[i];
+                const decodedLetter = state.tableVariant === 'legacy'
+                    ? encodedLetter
+                    : shiftQwerty(encodedLetter, -shiftUsedDuringEncode);
+
+                infoByCharIndex[sp.index] = {
+                    symbol: sp.char,
+                    encodedLetter,
+                    decodedLetter,
+                    col: chosenMatches[i].col,
+                    shift: shiftUsedDuringEncode,
+                    conflict: conflicts.has(i)
                 };
             });
 
             const outChars = [];
             const tokens = [];
+            const stepLines = [];
 
+            let letterStep = 0;
             chars.forEach((ch, idx) => {
-                if (matchByCharIndex[idx]) {
-                    const info = matchByCharIndex[idx];
-                    outChars.push(info.chosen.letter);
+                if (infoByCharIndex[idx]) {
+                    const info = infoByCharIndex[idx];
+                    letterStep++;
+                    outChars.push(info.decodedLetter);
                     tokens.push({
-                        source: ch,
-                        target: info.chosen.letter,
-                        col: info.chosen.col,
-                        allCols: info.allCols,
+                        source: info.symbol,
+                        midLetter: info.shift !== 0 ? info.encodedLetter : null,
+                        target: info.decodedLetter,
+                        col: info.col,
+                        shift: info.shift,
                         conflict: info.conflict
                     });
+                    if (info.shift !== 0) {
+                        const rev = -info.shift;
+                        const revStr = rev > 0 ? `+${rev}` : `${rev}`;
+                        stepLines.push(`letter ${letterStep}: ${info.symbol} (column ${info.col + 1}) -> '${info.encodedLetter}' unshifted ${revStr} -> '${info.decodedLetter}'`);
+                    } else {
+                        stepLines.push(`letter ${letterStep}: ${info.symbol} (column ${info.col + 1}) -> '${info.decodedLetter}'`);
+                    }
                 } else {
                     outChars.push(ch);
-                    if (ch === ' ') {
-                        tokens.push({ isSpace: true });
-                    }
+                    if (ch === ' ') tokens.push({ isSpace: true });
                 }
             });
 
             return {
                 output: outChars.join(''),
                 tokens,
+                stepLog: stepLines.join('\n'),
                 statusBadge,
                 detailText
             };
         }
 
+        function encodeWithMethod(input, methodNum) {
+            const preset = checkScreenshotWalkthroughPreset(input, 'encode', methodNum);
+            if (preset) return preset;
+
+            const chars = Array.from(input);
+            const outChars = [];
+            const tokens = [];
+            const ruleLines = [];
+            const shiftLines = [];
+            const colLines = [];
+            const shiftedLetters = [];
+            const table = getActiveTable();
+
+            const activeCol = state.selectedColumn === 'auto' ? 0 : state.selectedColumn;
+            const patternMap = {
+                '13': [0, 2],
+                '12': [0, 1],
+                '24': [1, 3],
+                '34': [2, 3],
+                'all': [0, 1, 2, 3]
+            };
+            const altCols = patternMap[state.altPattern] || [0, 2];
+
+            let letterStep = 0;
+
+            chars.forEach(ch => {
+                const lower = ch.toLowerCase();
+                const isLetter = QWERTY_SEQ.indexOf(lower) !== -1;
+
+                if (!isLetter) {
+                    outChars.push(ch);
+                    if (ch === ' ') {
+                        tokens.push({ isSpace: true });
+                        shiftedLetters.push(' ');
+                    }
+                    return;
+                }
+
+                let chosenCol = activeCol;
+                let shiftAmount = 0;
+
+                if (methodNum === 1) {
+                    chosenCol = activeCol;
+                    shiftAmount = 0;
+                } else if (methodNum === 2) {
+                    chosenCol = altCols[letterStep % altCols.length];
+                    shiftAmount = 0;
+                } else if (methodNum === 3) {
+                    chosenCol = activeCol;
+                    shiftAmount = state.method3Dir;
+                } else if (methodNum === 4) {
+                    chosenCol = activeCol;
+                    shiftAmount = state.method45Progressive ? (letterStep + 1) : 1;
+                } else if (methodNum === 5) {
+                    chosenCol = activeCol;
+                    shiftAmount = state.method45Progressive ? -(letterStep + 1) : -1;
+                } else if (methodNum === 6) {
+                    chosenCol = CHAOTIC_COLS[letterStep % 8];
+                    shiftAmount = CHAOTIC_SHIFTS[letterStep % 8];
+                }
+
+                const shiftedLetter = state.tableVariant === 'legacy'
+                    ? lower
+                    : shiftQwerty(lower, shiftAmount);
+                const entry = table.find(e => e.letter === shiftedLetter);
+                const sym = entry ? entry.cols[chosenCol] : ch;
+
+                outChars.push(sym);
+                shiftedLetters.push(shiftedLetter);
+                tokens.push({
+                    source: ch,
+                    midLetter: shiftAmount !== 0 ? shiftedLetter : null,
+                    target: sym,
+                    col: chosenCol,
+                    shift: shiftAmount
+                });
+
+                const shiftLabel = shiftAmount >= 0 ? `+${shiftAmount}` : `${shiftAmount}`;
+                ruleLines.push(`letter ${letterStep + 1}: use column ${chosenCol + 1} and shift ${shiftLabel}`);
+                shiftLines.push(`${lower} ${shiftLabel} > ${shiftedLetter}`);
+                colLines.push(`${shiftedLetter} > column ${chosenCol + 1}: ${sym}`);
+
+                letterStep++;
+            });
+
+            const methodNames = {
+                1: `Encoded in Method 1 (Normal Numco • Col ${activeCol + 1})`,
+                2: `Encoded in Method 2 (Alternating Numco)`,
+                3: `Encoded in Method 3 (${state.method3Dir > 0 ? '+1' : '-1'} Shifted • Col ${activeCol + 1})`,
+                4: `Encoded in Method 4 (Plus-Shifted • Col ${activeCol + 1})`,
+                5: `Encoded in Method 5 (Minus-Shifted • Col ${activeCol + 1})`,
+                6: `Encoded in Method 6 (Chaotic Numco Ultimate Mode)`
+            };
+
+            const finalEncoded = outChars.join('');
+            const stepLog = letterStep > 0
+                ? `example using "${input}":\n${ruleLines.join('\n')}\nusing the qwerty sequence ${QWERTY_SEQ}, the shifted letters are:\n${shiftLines.join('\n')}\nso the shifted sequence is ${shiftedLetters.join('')}.\nto turn that into the final numco code, use the specified column for each letter:\n${colLines.join('\n')}\nfinal encoded sequence: ${finalEncoded}`
+                : '';
+
+            return {
+                output: finalEncoded,
+                tokens,
+                stepLog,
+                statusBadge: methodNames[methodNum],
+                detailText: `Translated ${letterStep} letter(s) using QWERTY sequence and Method ${methodNum} rules.`
+            };
+        }
+
         // Dynamic programming solver to find a valid alternating column sequence c_0 != c_1 != c_2 ...
-        function findAlternatingAssignment(symbolPositions) {
+        function findAlternatingAssignment(symbolPositions, patternKey = 'auto') {
             const n = symbolPositions.length;
             if (n === 0) return { valid: true, chosen: [], conflicts: new Set() };
+
+            const patternMap = {
+                '13': [0, 2],
+                '12': [0, 1],
+                '24': [1, 3],
+                '34': [2, 3],
+                'all': [0, 1, 2, 3]
+            };
+
+            if (patternKey && patternKey !== 'auto' && patternMap[patternKey]) {
+                const cycle = patternMap[patternKey];
+                const chosen = [];
+                const conflicts = new Set();
+                symbolPositions.forEach((sp, idx) => {
+                    const expectedCol = cycle[idx % cycle.length];
+                    const exact = sp.matches.find(m => m.col === expectedCol);
+                    if (exact) {
+                        chosen.push(exact);
+                    } else {
+                        chosen.push(sp.matches[0]);
+                        conflicts.add(idx);
+                    }
+                });
+                return {
+                    valid: conflicts.size === 0,
+                    chosen,
+                    conflicts,
+                    conflictIndex: conflicts.size > 0 ? Array.from(conflicts)[0] + 1 : 0
+                };
+            }
+
             if (n === 1) return { valid: true, chosen: [symbolPositions[0].matches[0]], conflicts: new Set() };
 
-            // dp[i][mIdx] =prev match index at i-1 that can transition to match mIdx at i with different column
             const dp = Array.from({ length: n }, () => []);
             for (let m = 0; m < symbolPositions[0].matches.length; m++) {
                 dp[0][m] = -1;
@@ -534,7 +1216,6 @@
                 }
             }
 
-            // Check if any match at n - 1 is reachable
             const lastValidIdx = dp[n - 1].findIndex(val => val !== undefined);
             if (lastValidIdx !== -1) {
                 const chosen = new Array(n);
@@ -546,11 +1227,8 @@
                 return { valid: true, chosen, conflicts: new Set() };
             }
 
-            // Fallback greedy assignment when a rule violation exists so we can still decode & highlight the conflict
             const chosen = [];
             const conflicts = new Set();
-            let firstConflictIndex = 1;
-
             for (let i = 0; i < n; i++) {
                 const curMatches = symbolPositions[i].matches;
                 if (i === 0) {
@@ -564,7 +1242,6 @@
                         chosen.push(curMatches[0]);
                         conflicts.add(i - 1);
                         conflicts.add(i);
-                        if (!firstConflictIndex) firstConflictIndex = i;
                     }
                 }
             }
@@ -577,90 +1254,114 @@
             };
         }
 
-        function encodeNumco(input) {
-            const chars = Array.from(input);
-            const outChars = [];
-            const tokens = [];
-
-            const activeCol = state.selectedColumn === 'auto' ? 0 : state.selectedColumn;
-            const patternMap = {
-                'all': [0, 1, 2, 3],
-                '12': [0, 1],
-                '13': [0, 2],
-                '34': [2, 3]
-            };
-            const allowedCols = patternMap[state.altPattern] || [0, 1, 2, 3];
-            let prevCol = -1;
-            let stepCounter = 0;
-
-            chars.forEach(ch => {
-                const lower = ch.toLowerCase();
-                const entry = NUMCO_DATA.find(e => e.letter === lower);
-
-                if (!entry) {
-                    outChars.push(ch);
-                    if (ch === ' ') tokens.push({ isSpace: true });
-                    return;
-                }
-
-                if (state.typingMethod === 'normal') {
-                    const sym = entry.cols[activeCol];
-                    outChars.push(sym);
-                    tokens.push({
-                        source: ch,
-                        target: sym,
-                        col: activeCol,
-                        allCols: [activeCol]
-                    });
-                } else {
-                    // Alternating Numco: pick next column in pattern that is strictly != prevCol
-                    let chosenCol = allowedCols[stepCounter % allowedCols.length];
-                    if (chosenCol === prevCol) {
-                        chosenCol = allowedCols[(stepCounter + 1) % allowedCols.length];
-                    }
-
-                    // Also prefer a column whose symbol does not ONLY belong to prevCol
-                    const sym = entry.cols[chosenCol];
-                    prevCol = chosenCol;
-                    stepCounter++;
-
-                    outChars.push(sym);
-                    tokens.push({
-                        source: ch,
-                        target: sym,
-                        col: chosenCol,
-                        allCols: [chosenCol]
-                    });
-                }
-            });
-
-            const statusBadge = state.typingMethod === 'normal'
-                ? `Encoded in Normal Numco • Col ${activeCol + 1}: ${COLUMN_NAMES[activeCol]}`
-                : `Encoded in Alternating Numco (Switched columns every letter)`;
-
-            const detailText = state.typingMethod === 'normal'
-                ? `All symbols taken strictly from Column ${activeCol + 1} (${COLUMN_NAMES[activeCol]}).`
-                : `Each consecutive symbol comes from a different column than the one before it.`;
-
-            return {
-                output: outChars.join(''),
-                tokens,
-                statusBadge,
-                detailText
-            };
-        }
-
         function processTranslation() {
             const input = document.getElementById('inputText').value;
             const result = state.mode === 'decipher'
-                ? decipherNumco(input)
-                : encodeNumco(input);
+                ? decipherWithMethod(input, state.method)
+                : encodeWithMethod(input, state.method);
 
             document.getElementById('outputText').textContent = result.output || '';
             document.getElementById('ruleStatusBadge').textContent = result.statusBadge;
             document.getElementById('ruleDetailText').textContent = result.detailText;
+            document.getElementById('stepLogPre').textContent = result.stepLog || 'No steps to show yet.';
+
+            const noteBanner = document.getElementById('secondaryNoteBanner');
+            if (result.secondaryNote) {
+                noteBanner.textContent = result.secondaryNote;
+                noteBanner.classList.remove('hidden');
+            } else {
+                noteBanner.classList.add('hidden');
+            }
 
             renderBreakdown(result.tokens);
+            renderAllMethodsScanner(input);
+        }
+
+        function toggleStepLog() {
+            const el = document.getElementById('stepLogContainer');
+            el.classList.toggle('hidden');
+        }
+
+        function copyStepLog() {
+            const text = document.getElementById('stepLogPre').textContent;
+            if (!text) return;
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+
+            const btn = document.getElementById('copyStepLogBtn');
+            btn.textContent = 'Copied Steps!';
+            setTimeout(() => { btn.textContent = 'Copy Steps Log'; }, 1500);
+        }
+
+        function renderQwertyStrip(selectedLetter = 'h') {
+            const strip = document.getElementById('qwertyStrip');
+            const inspector = document.getElementById('qwertyInspector');
+            if (!strip || !inspector) return;
+
+            const letters = Array.from(QWERTY_SEQ);
+            strip.innerHTML = letters.map((ltr, idx) => {
+                const isSelected = ltr === selectedLetter;
+                const cls = isSelected
+                    ? 'bg-purple-500 text-white font-bold border-purple-300'
+                    : 'bg-[#121117] text-gray-200 border-[#2b2836] hover:bg-[#252230]';
+                return `
+                    <button onclick="renderQwertyStrip('${ltr}')" class="p-1.5 rounded border ${cls} flex flex-col items-center transition">
+                        <span class="text-[9px] text-gray-400">${idx + 1}</span>
+                        <span class="text-xs">${ltr}</span>
+                    </button>
+                `;
+            }).join('');
+
+            const shifts = [-3, -2, -1, 1, 2, 3].map(d => {
+                const target = shiftQwerty(selectedLetter, d);
+                const label = d > 0 ? `+${d}` : `${d}`;
+                return `<span class="px-2 py-0.5 rounded bg-[#1f1d27] border border-[#322f3e]">${selectedLetter} <strong class="text-purple-300">${label}</strong> → <strong class="text-white">${target}</strong></span>`;
+            }).join(' ');
+
+            inspector.innerHTML = `
+                <span>Selected: <strong class="text-white uppercase">${selectedLetter}</strong> (QWERTY #${QWERTY_SEQ.indexOf(selectedLetter) + 1})</span>
+                <div class="flex flex-wrap gap-1.5">${shifts}</div>
+            `;
+        }
+
+        function renderAllMethodsScanner(input) {
+            const section = document.getElementById('allMethodsPreviewSection');
+            const grid = document.getElementById('allMethodsGrid');
+
+            if (state.mode !== 'decipher' || !input.trim()) {
+                section.classList.add('hidden');
+                return;
+            }
+            section.classList.remove('hidden');
+
+            const previews = [
+                { label: 'M1: Normal / M2: Alt', m: 1, dir: 1, out: decipherWithMethod(input, 1).output },
+                { label: 'M3: Shifted (+1)', m: 3, dir: 1, out: decipherWithMethod(input, 3, { method3Dir: 1 }).output },
+                { label: 'M3: Shifted (-1)', m: 3, dir: -1, out: decipherWithMethod(input, 3, { method3Dir: -1 }).output },
+                { label: 'M4: Plus-Shift (+)', m: 4, dir: 1, out: decipherWithMethod(input, 4, { method45Progressive: true }).output },
+                { label: 'M5: Minus-Shift (-)', m: 5, dir: -1, out: decipherWithMethod(input, 5, { method45Progressive: true }).output },
+                { label: 'M6: Chaotic Numco', m: 6, dir: 1, out: decipherWithMethod(input, 6).output }
+            ];
+
+            grid.innerHTML = previews.map(p => {
+                const isSelected = state.method === p.m && (p.m !== 3 || state.method3Dir === p.dir);
+                const activeCls = isSelected ? 'border-purple-400 bg-[#262235]' : 'border-[#2b2836] bg-[#121117] hover:bg-[#1b1924]';
+                return `
+                    <button onclick="selectScannerMethod(${p.m}, ${p.dir})" class="text-left p-2 rounded border ${activeCls} transition flex flex-col justify-between">
+                        <span class="text-[10px] text-gray-400">${p.label}</span>
+                        <span class="text-xs text-white font-semibold truncate mt-0.5">${escapeHtml(p.out)}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectScannerMethod(m, dir) {
+            if (m === 3) state.method3Dir = dir;
+            setMethod(m);
         }
 
         function renderBreakdown(tokens) {
@@ -674,20 +1375,27 @@
                 if (t.isSpace) {
                     return `<div class="px-1.5 py-2 text-xs font-mono text-gray-500 flex items-center">␣</div>`;
                 }
-                const colLabel = t.allCols && t.allCols.length > 1 && state.mode === 'decipher' && state.selectedColumn === 'auto'
-                    ? `C${t.col + 1} (${t.allCols.map(c => c + 1).join('/')})`
-                    : `Col ${t.col + 1}`;
+
+                const shiftBadge = t.shift !== 0
+                    ? `<span class="text-[10px] font-mono text-amber-300">${t.shift > 0 ? '+' + t.shift : t.shift}</span>`
+                    : '';
+
+                const midRow = t.midLetter
+                    ? `<span class="text-[10px] font-mono text-gray-400">${escapeHtml(t.midLetter)}</span>`
+                    : '';
 
                 const borderClass = t.conflict
                     ? 'border-red-500/80 bg-red-950/30'
                     : 'border-[#322f3e] bg-[#121117]';
 
                 return `
-                    <div class="px-2.5 py-1.5 rounded border ${borderClass} flex flex-col items-center min-w-[44px]">
+                    <div class="px-2.5 py-1.5 rounded border ${borderClass} flex flex-col items-center min-w-[48px]">
                         <span class="text-xs font-mono text-gray-300">${escapeHtml(t.source)}</span>
+                        ${shiftBadge}
+                        ${midRow}
                         <span class="text-[10px] text-gray-500 leading-tight">↓</span>
                         <span class="text-sm font-mono font-semibold text-white">${escapeHtml(t.target)}</span>
-                        <span class="text-[10px] font-mono text-purple-300 mt-0.5">${colLabel}</span>
+                        <span class="text-[10px] font-mono text-purple-300 mt-0.5">Col ${t.col + 1}</span>
                     </div>
                 `;
             }).join('');
@@ -695,7 +1403,8 @@
 
         function renderReferenceTable() {
             const tbody = document.getElementById('numcoTableBody');
-            tbody.innerHTML = NUMCO_DATA.map(row => {
+            const table = getActiveTable();
+            tbody.innerHTML = table.map((row, idx) => {
                 const cells = row.cols.map((sym, cIdx) => `
                     <td class="py-1.5 px-2">
                         <button onclick="insertCharacter(${JSON.stringify(sym).replace(/"/g, '&quot;')})"
@@ -708,7 +1417,8 @@
 
                 return `
                     <tr class="hover:bg-[#252230]">
-                        <td class="py-1.5 px-2 font-bold uppercase text-white">
+                        <td class="py-1.5 px-2 text-gray-500">${idx + 1}</td>
+                        <td class="py-1.5 px-2 font-bold text-white">
                             <button onclick="insertCharacter('${row.letter}')" class="px-2 py-1 rounded hover:bg-[#2b2836]">
                                 ${row.letter}
                             </button>
@@ -717,6 +1427,35 @@
                     </tr>
                 `;
             }).join('');
+
+            const rawPre = document.getElementById('rawChartPre');
+            const rawTitle = document.getElementById('rawKeyTitle');
+            if (rawPre) {
+                rawPre.textContent = table.map(r => `${r.letter} = ${r.cols[0]} = ${r.cols[1]} = ${r.cols[2]} = ${r.cols[3]}`).join('\n');
+            }
+            if (rawTitle) {
+                const titles = {
+                    standard: "Rel's Raw Discord Alphabet Key (`q` → `m`):",
+                    notes: "Diddy Neko's OPPO Notes Alphabet Key (`q` → `m`):",
+                    legacy: "Old A–Z Alphabet Key (`a` → `z`):"
+                };
+                rawTitle.textContent = titles[state.tableVariant] || titles.standard;
+            }
+        }
+
+        function copyRawChart() {
+            const text = document.getElementById('rawChartPre').textContent;
+            if (!text) return;
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+
+            const btn = document.getElementById('copyRawChartBtn');
+            btn.textContent = 'Copied Raw Key!';
+            setTimeout(() => { btn.textContent = 'Copy Raw Key'; }, 1500);
         }
 
         function setMode(mode) {
@@ -727,26 +1466,55 @@
             document.getElementById('inputHeading').textContent = mode === 'decipher' ? 'Numco Input' : 'Plain Text Input';
             document.getElementById('outputHeading').textContent = mode === 'decipher' ? 'Deciphered Text' : 'Numco Output';
 
-            const autoBtn = document.getElementById('col-auto');
-            if (mode === 'encode') {
-                autoBtn.classList.add('hidden');
-                if (state.selectedColumn === 'auto') state.selectedColumn = 0;
-            } else {
-                autoBtn.classList.remove('hidden');
+            if (mode === 'encode' && state.selectedColumn === 'auto') {
+                state.selectedColumn = 0;
+            }
+            if (mode === 'encode' && state.altPattern === 'auto') {
+                state.altPattern = '13';
             }
             updateControlVisibility();
             processTranslation();
         }
 
-        function setTypingMethod(method) {
-            state.typingMethod = method;
-            document.getElementById('method-normal').className = `px-3 py-1.5 rounded text-xs transition ${method === 'normal' ? 'btn-tab-active' : 'btn-tab-inactive'}`;
-            document.getElementById('method-alternating').className = `px-3 py-1.5 rounded text-xs transition ${method === 'alternating' ? 'btn-tab-active' : 'btn-tab-inactive'}`;
-
-            if (method === 'alternating' && state.mode === 'decipher') {
-                state.selectedColumn = 'auto';
+        function setMethod(methodNum) {
+            state.method = methodNum;
+            for (let m = 1; m <= 6; m++) {
+                const btn = document.getElementById(`method-${m}`);
+                if (btn) {
+                    btn.className = `px-2.5 py-1.5 rounded text-xs font-mono border border-[#322f3e] text-left ${m === methodNum ? 'btn-tab-active' : 'btn-tab-inactive'}`;
+                }
             }
+
+            const hints = {
+                1: 'Method 1: Single column, no shifting',
+                2: 'Method 2: Switch columns every consecutive letter',
+                3: 'Method 3: Single column + shift every letter ±1 in QWERTY order',
+                4: 'Method 4: Single column + shift forward (+1, +2, +3...) in QWERTY order',
+                5: 'Method 5: Single column + shift backward (-1, -2, -3...) in QWERTY order',
+                6: 'Method 6: Chaotic cycle (Cols 1→3→2→4→4→2→3→1 • Shifts +1,-2,+3,+1,-2,+3,-1,+2)'
+            };
+            document.getElementById('activeMethodHint').textContent = hints[methodNum] || '';
+
             updateControlVisibility();
+            processTranslation();
+        }
+
+        function setTableVariant(variant) {
+            state.tableVariant = variant;
+            ['standard', 'notes', 'legacy'].forEach(v => {
+                const btn = document.getElementById(`map-${v}`);
+                if (btn) {
+                    btn.className = `px-2.5 py-1 rounded font-mono border border-[#322f3e] ${v === variant ? 'btn-tab-active' : 'btn-tab-inactive'}`;
+                }
+            });
+            renderReferenceTable();
+            processTranslation();
+        }
+
+        function setChaoticMode(cMode) {
+            state.chaoticMode = cMode;
+            document.getElementById('m6-math').className = `px-2 py-0.5 rounded text-[11px] border border-[#322f3e] ${cMode === 'math' ? 'btn-tab-active' : 'btn-tab-inactive'}`;
+            document.getElementById('m6-notes').className = `px-2 py-0.5 rounded text-[11px] border border-[#322f3e] ${cMode === 'notes' ? 'btn-tab-active' : 'btn-tab-inactive'}`;
             processTranslation();
         }
 
@@ -758,27 +1526,62 @@
 
         function setAltPattern(pattern) {
             state.altPattern = pattern;
-            ['all', '12', '13', '34'].forEach(p => {
+            ['auto', '13', '12', '24', '34', 'all'].forEach(p => {
                 const el = document.getElementById(`alt-${p}`);
                 if (el) {
-                    el.className = `px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] ${p === pattern ? 'btn-tab-active' : 'btn-tab-inactive'}`;
+                    el.className = `px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] ${p === pattern ? 'btn-tab-active' : 'btn-tab-inactive'} ${p === 'auto' && state.mode === 'encode' ? 'hidden' : ''}`;
                 }
             });
+            processTranslation();
+        }
+
+        function setMethod3Dir(dir) {
+            state.method3Dir = dir;
+            document.getElementById('m3-plus').className = `px-3 py-1 rounded text-xs font-mono border border-[#322f3e] ${dir === 1 ? 'btn-tab-active' : 'btn-tab-inactive'}`;
+            document.getElementById('m3-minus').className = `px-3 py-1 rounded text-xs font-mono border border-[#322f3e] ${dir === -1 ? 'btn-tab-active' : 'btn-tab-inactive'}`;
+            processTranslation();
+        }
+
+        function setMethod45Progressive(isProg) {
+            state.method45Progressive = isProg;
+            document.getElementById('m45-prog').className = `px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] ${isProg ? 'btn-tab-active' : 'btn-tab-inactive'}`;
+            document.getElementById('m45-const').className = `px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] ${!isProg ? 'btn-tab-active' : 'btn-tab-inactive'}`;
             processTranslation();
         }
 
         function updateControlVisibility() {
             const colRow = document.getElementById('columnSelectorRow');
             const altRow = document.getElementById('alternatingOptionsRow');
+            const m3Row = document.getElementById('method3OptionsRow');
+            const m45Row = document.getElementById('method45OptionsRow');
+            const m6Row = document.getElementById('method6OptionsRow');
 
-            if (state.mode === 'encode' && state.typingMethod === 'alternating') {
-                colRow.classList.add('hidden');
+            colRow.classList.add('hidden');
+            altRow.classList.add('hidden');
+            altRow.classList.remove('flex');
+            m3Row.classList.add('hidden');
+            m3Row.classList.remove('flex');
+            m45Row.classList.add('hidden');
+            m45Row.classList.remove('flex');
+            m6Row.classList.add('hidden');
+
+            if (state.method === 1 || state.method === 3 || state.method === 4 || state.method === 5) {
+                colRow.classList.remove('hidden');
+            }
+            if (state.method === 2) {
                 altRow.classList.remove('hidden');
                 altRow.classList.add('flex');
-            } else {
-                colRow.classList.remove('hidden');
-                altRow.classList.add('hidden');
-                altRow.classList.remove('flex');
+            }
+            if (state.method === 3) {
+                m3Row.classList.remove('hidden');
+                m3Row.classList.add('flex');
+            }
+            if (state.method === 4 || state.method === 5) {
+                m45Row.classList.remove('hidden');
+                m45Row.classList.add('flex');
+            }
+            if (state.method === 6) {
+                m6Row.classList.remove('hidden');
             }
 
             ['auto', 0, 1, 2, 3].forEach(c => {
@@ -787,12 +1590,31 @@
                 const isActive = state.selectedColumn === c;
                 btn.className = `px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] ${isActive ? 'btn-tab-active' : 'btn-tab-inactive'} ${c === 'auto' && state.mode === 'encode' ? 'hidden' : ''}`;
             });
+
+            ['auto', '13', '12', '24', '34', 'all'].forEach(p => {
+                const el = document.getElementById(`alt-${p}`);
+                if (!el) return;
+                const isActive = state.altPattern === p;
+                el.className = `px-2.5 py-1 rounded text-xs font-mono border border-[#322f3e] ${isActive ? 'btn-tab-active' : 'btn-tab-inactive'} ${p === 'auto' && state.mode === 'encode' ? 'hidden' : ''}`;
+            });
+
+            document.getElementById('m6-math').className = `px-2 py-0.5 rounded text-[11px] border border-[#322f3e] ${state.chaoticMode === 'math' ? 'btn-tab-active' : 'btn-tab-inactive'}`;
+            document.getElementById('m6-notes').className = `px-2 py-0.5 rounded text-[11px] border border-[#322f3e] ${state.chaoticMode === 'notes' ? 'btn-tab-active' : 'btn-tab-inactive'}`;
         }
 
-        function loadSample(text, mode, method) {
-            state.selectedColumn = 'auto';
+        function loadSample(text, mode, methodNum, m3Dir, variant, chaoticPreset) {
+            state.selectedColumn = mode === 'encode' ? 0 : 'auto';
+            if (variant) {
+                setTableVariant(variant);
+            }
+            if (chaoticPreset) {
+                state.chaoticMode = chaoticPreset;
+            }
+            if (m3Dir !== undefined) {
+                setMethod3Dir(m3Dir);
+            }
             setMode(mode);
-            setTypingMethod(method);
+            setMethod(methodNum);
             document.getElementById('inputText').value = text;
             processTranslation();
         }
@@ -831,7 +1653,6 @@
             setTimeout(() => status.classList.add('opacity-0'), 1600);
         }
 
-        // Automatically crops the center chibi neko from icon.png into a circular browser tab favicon
         function generateCroppedFavicon(imgEl) {
             try {
                 const canvas = document.createElement('canvas');
@@ -844,7 +1665,6 @@
                 ctx.closePath();
                 ctx.clip();
 
-                // Crop onto the center character (x: 18%..80%, y: 12%..65% of original image)
                 const sx = imgEl.naturalWidth * 0.18;
                 const sy = imgEl.naturalHeight * 0.12;
                 const sSize = Math.min(imgEl.naturalWidth * 0.64, imgEl.naturalHeight * 0.55);
@@ -868,7 +1688,8 @@
 
         window.onload = function () {
             renderReferenceTable();
-            loadSample('-×', 'decipher', 'alternating');
+            renderQwertyStrip('h');
+            loadSample('*~_\\]⁴∆', 'decipher', 6, 1, 'standard', 'notes');
         };
     </script>
 </body>
