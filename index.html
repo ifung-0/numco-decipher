@@ -126,18 +126,12 @@
                     </button>
                 </div>
 
-                <!-- Keyboard Table Variant Switch -->
-                <div class="flex flex-wrap items-center gap-1.5 text-xs">
-                    <span class="text-gray-400">Alphabet Chart:</span>
-                    <button id="map-standard" onclick="setTableVariant('standard')" class="px-2.5 py-1 rounded font-mono border border-[#322f3e] btn-tab-active" title="Rel's Discord Chart: q..m with l=(, z=/, x=*, c=&quot;, v=', b=:, n=;, m=?">
-                        Rel Discord (l=( z=/)
-                    </button>
-                    <button id="map-notes" onclick="setTableVariant('notes')" class="px-2.5 py-1 rounded font-mono border border-[#322f3e] btn-tab-inactive" title="Diddy Neko's OPPO Notes Chart: q..m with l=/, z=*, x=&quot;, c=', v=:, b=;, n=!, m=?">
-                        OPPO Notes (l=/ z=* n=!)
-                    </button>
-                    <button id="map-legacy" onclick="setTableVariant('legacy')" class="px-2.5 py-1 rounded font-mono border border-[#322f3e] btn-tab-inactive" title="Old A-Z Chart (a=1, b=2 ... z=?)">
-                        Old A–Z (a=1)
-                    </button>
+                <!-- Official Discord Key Indicator -->
+                <div class="flex items-center gap-2 text-xs">
+                    <span class="text-gray-400">Active Key:</span>
+                    <span class="px-2.5 py-1 rounded font-mono border border-[#322f3e] bg-[#121117] text-emerald-400">
+                        ✓ Official Discord Key (q → m)
+                    </span>
                 </div>
             </div>
 
@@ -319,39 +313,33 @@
 
                 <!-- Example Test Buttons from the Screenshots -->
                 <div class="mt-3 pt-2.5 border-t border-[#2b2836]">
-                    <div class="text-[11px] text-gray-400 mb-1.5">Examples from Diddy Neko's &amp; Rel's screenshots:</div>
+                    <div class="text-[11px] text-gray-400 mb-1.5">Click an example to test:</div>
                     <div class="flex flex-wrap gap-1.5">
-                        <button onclick="loadSample('-8', 'decipher', 1, 1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 1 Normal: hi">
+                        <button onclick="loadSample('-8', 'decipher', 1, 1)" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 1 Normal: hi">
                             "-8" (M1: hi)
                         </button>
-                        <button onclick="loadSample('-3((9', 'decipher', 1, 1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 1 Normal (Rel Discord chart): hello">
-                            "-3((9" (M1 Discord)
+                        <button onclick="loadSample('-3((9', 'decipher', 1, 1)" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 1 Normal: hello">
+                            "-3((9" (M1: hello)
                         </button>
-                        <button onclick="loadSample('-3//9', 'decipher', 1, 1, 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 1 Normal (OPPO Notes chart): hello">
-                            "-3//9" (M1 Notes)
-                        </button>
-                        <button onclick="loadSample('-×', 'decipher', 2, 1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 2 Alternating: hi">
+                        <button onclick="loadSample('-×', 'decipher', 2, 1)" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 2 Alternating: hi">
                             "-×" (M2: hi)
                         </button>
-                        <button onclick="loadSample('&2))8', 'decipher', 3, -1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 3 (-1 Shift): hello">
+                        <button onclick="loadSample('&2))8', 'decipher', 3, -1)" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 3 (-1 Shift): hello">
                             "&amp;2))8" (M3 -1: hello)
                         </button>
-                        <button onclick="loadSample('+4**0', 'decipher', 3, 1, 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 3 (+1 Shift Notes chart): hello">
-                            "+4**0" (M3 +1 Notes)
+                        <button onclick="loadSample('+4//0', 'decipher', 3, 1)" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 3 (+1 Shift): hello">
+                            "+4//0" (M3 +1: hello)
                         </button>
-                        <button onclick="loadSample('+4//0', 'decipher', 3, 1, 'standard')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 3 (+1 Shift Discord chart): hello">
-                            "+4//0" (M3 +1 Discord)
-                        </button>
-                        <button onclick="loadSample('+4\':_', 'decipher', 4, 1, 'notes', 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 4 Plus-Shifted example from screenshot: hello">
+                        <button onclick="loadSample('+4\':_', 'decipher', 4, 1, 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 4 Plus-Shifted example: hello">
                             "+4':_" (M4: hello)
                         </button>
-                        <button onclick="loadSample('&1+-4', 'decipher', 5, -1, 'notes', 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 5 Minus-Shifted example from screenshot: hello">
+                        <button onclick="loadSample('&1+-4', 'decipher', 5, -1, 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-gray-200" title="Method 5 Minus-Shifted example: hello">
                             "&amp;1+-4" (M5: hello)
                         </button>
-                        <button onclick="loadSample('zenkawa', 'encode', 6, 1, 'standard', 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-purple-300" title="Method 6 Chaotic Numco screenshot example: zenkawa -> *~_\]⁴∆">
-                            "zenkawa" (M6 Walkthrough)
+                        <button onclick="loadSample('zenkawa', 'encode', 6, 1, 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-purple-300" title="Method 6 Chaotic Numco: zenkawa -> *~_\]⁴∆">
+                            "zenkawa" (M6 Encode)
                         </button>
-                        <button onclick="loadSample('*~_\\]⁴∆', 'decipher', 6, 1, 'standard', 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-purple-300" title="Decipher Method 6 Chaotic Numco: *~_\]⁴∆ -> zenkawa">
+                        <button onclick="loadSample('*~_\\]⁴∆', 'decipher', 6, 1, 'notes')" class="text-xs font-mono px-2 py-1 rounded bg-[#121117] hover:bg-[#292634] border border-[#322f3e] text-purple-300" title="Decipher Method 6 Chaotic Numco: *~_\]⁴∆ -> zenkawa">
                             "*~_\]⁴∆" (M6 Decipher)
                         </button>
                     </div>
@@ -449,7 +437,28 @@
                     </p>
                     <div class="font-mono text-[11px] text-purple-300 pt-1">
                         • hi = -8 (Col 1)<br>
-                        • hello = -3((9 (Discord) / -3//9 (Notes)
+                        • hello = -3((9 (Col 1)
+                    </div>
+                </div>
+
+                <div class="bg-[#121117] border border-[#2b2836] rounded p-3 space-y-1">
+                    <div class="font-semibold text-white">Method 2: Alternating Numco</div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Alternate between two columns for consecutive letters (e.g. Col 1 for 1st, Col 3 for 2nd, Col 1 for 3rd, Col 3 for 4th) and keep the alternating order consistent.
+                    </p>
+                    <div class="font-mono text-[11px] text-purple-300 pt-1">
+                        • hi = -× (h uses Col 1 "-", i uses Col 3 "×")
+                    </div>
+                </div>
+
+                <div class="bg-[#121117] border border-[#2b2836] rounded p-3 space-y-1">
+                    <div class="font-semibold text-white">Method 3: Shifted Numco (+1 or -1)</div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Stick to one column for the entire message. Before encoding each letter, shift it <strong class="text-gray-200">+1 forward</strong> or <strong class="text-gray-200">-1 backward</strong> in the QWERTY sequence (<span class="font-mono">m↔q</span> wraps).
+                    </p>
+                    <div class="font-mono text-[11px] text-purple-300 pt-1">
+                        • "&amp;2))8" = hello in -1 numco<br>
+                        • "+4//0" = hello in +1 numco
                     </div>
                 </div>
 
@@ -543,7 +552,7 @@
             <!-- Raw Copyable Discord Block -->
             <div class="mt-4 pt-3 border-t border-[#2b2836]">
                 <div class="flex items-center justify-between mb-1.5">
-                    <span id="rawKeyTitle" class="text-xs font-mono text-gray-400">Rel's Raw Discord Alphabet Key (`q` → `m`):</span>
+                    <span id="rawKeyTitle" class="text-xs font-mono text-gray-400">Official Discord Alphabet Key (`q` → `m`):</span>
                     <button id="copyRawChartBtn" onclick="copyRawChart()" class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#292634] hover:bg-[#383447] text-white">
                         Copy Raw Key
                     </button>
@@ -570,8 +579,8 @@
         // Shifts: +1, -2, +3, +1, -2, +3, -1, +2
         const CHAOTIC_SHIFTS = [1, -2, 3, 1, -2, 3, -1, 2];
 
-        // 1. Rel's Discord QWERTY 4-column table (34272.jpg)
-        const NUMCO_DATA_STANDARD = [
+        // Official Discord QWERTY 4-column table (q -> m)
+        const NUMCO_DATA = [
             { letter: 'q', cols: ['1', '¹', '~', '~'] },
             { letter: 'w', cols: ['2', '²', '`', '`'] },
             { letter: 'e', cols: ['3', '³', '|', '|'] },
@@ -600,66 +609,6 @@
             { letter: 'm', cols: ['?', '¿', ']', ']'] }
         ];
 
-        // 2. Diddy Neko's OPPO Notes QWERTY table (34274.jpg) where Col 1 l..n is (/ * " ' : ; !)
-        const NUMCO_DATA_NOTES = [
-            { letter: 'q', cols: ['1', '¹', '~', '~'] },
-            { letter: 'w', cols: ['2', '²', '`', '`'] },
-            { letter: 'e', cols: ['3', '³', '|', '|'] },
-            { letter: 'r', cols: ['4', '⁴', '•', '♪'] },
-            { letter: 't', cols: ['5', '⁵', '√', '√'] },
-            { letter: 'y', cols: ['6', '⁶', 'π', 'Ω'] },
-            { letter: 'u', cols: ['7', '⁷', '÷', '÷'] },
-            { letter: 'i', cols: ['8', '⁸', '×', '×'] },
-            { letter: 'o', cols: ['9', '⁹', '§', '¶'] },
-            { letter: 'p', cols: ['0', '⁰', '∆', '∆'] },
-            { letter: 'a', cols: ['@', '@', '£', '£'] },
-            { letter: 's', cols: ['#', '№', '¢', '¢'] },
-            { letter: 'd', cols: ['$', '¢', '€', '€'] },
-            { letter: 'f', cols: ['_', '_', '¥', '¥'] },
-            { letter: 'g', cols: ['&', '&', '^', '↑'] },
-            { letter: 'h', cols: ['-', '—', '°', '′'] },
-            { letter: 'j', cols: ['+', '±', '=', '∞'] },
-            { letter: 'k', cols: [')', '>', '}', ')'] },
-            { letter: 'l', cols: ['/', '/', '\\', '\\'] },
-            { letter: 'z', cols: ['*', '†', '%', '‰'] },
-            { letter: 'x', cols: ['"', '”', '©', '©'] },
-            { letter: 'c', cols: ["'", '’', '®', '®'] },
-            { letter: 'v', cols: [':', ':', '™', '™'] },
-            { letter: 'b', cols: [';', ';', '✓', '✓'] },
-            { letter: 'n', cols: ['!', '¡', '[', '['] },
-            { letter: 'm', cols: ['?', '¿', ']', ']'] }
-        ];
-
-        // 3. Old A-Z table (shown at bottom of 34272.jpg & 34273.jpg under "instead of")
-        const NUMCO_DATA_LEGACY = [
-            { letter: 'a', cols: ['1', '¹', '~', '~'] },
-            { letter: 'b', cols: ['2', '²', '`', '`'] },
-            { letter: 'c', cols: ['3', '³', '|', '|'] },
-            { letter: 'd', cols: ['4', '⁴', '•', '♪'] },
-            { letter: 'e', cols: ['5', '⁵', '√', '√'] },
-            { letter: 'f', cols: ['6', '⁶', 'π', 'Ω'] },
-            { letter: 'g', cols: ['7', '⁷', '÷', '÷'] },
-            { letter: 'h', cols: ['8', '⁸', '×', '×'] },
-            { letter: 'i', cols: ['9', '⁹', '§', '¶'] },
-            { letter: 'j', cols: ['0', '⁰', '∆', '∆'] },
-            { letter: 'k', cols: ['@', '@', '£', '£'] },
-            { letter: 'l', cols: ['#', '№', '¢', '¢'] },
-            { letter: 'm', cols: ['$', '¢', '€', '€'] },
-            { letter: 'n', cols: ['_', '_', '¥', '¥'] },
-            { letter: 'o', cols: ['&', '&', '^', '↑'] },
-            { letter: 'p', cols: ['-', '—', '°', '′'] },
-            { letter: 'q', cols: ['+', '±', '=', '∞'] },
-            { letter: 'r', cols: [')', '>', '}', ')'] },
-            { letter: 's', cols: ['(', '/', '\\', '\\'] },
-            { letter: 't', cols: ['/', '†', '%', '‰'] },
-            { letter: 'u', cols: ['*', '”', '©', '©'] },
-            { letter: 'v', cols: ['"', '’', '®', '®'] },
-            { letter: 'w', cols: ["'", ':', '™', '™'] },
-            { letter: 'x', cols: [':', ';', '✓', '✓'] },
-            { letter: 'y', cols: [';', '¡', '[', '['] },
-            { letter: 'z', cols: ['?', '¿', ']', ']'] }
-        ];
-
         let state = {
             mode: 'decipher',          // 'decipher' | 'encode'
             method: 1,                 // 1 | 2 | 3 | 4 | 5 | 6
@@ -667,14 +616,11 @@
             altPattern: 'auto',        // 'auto' | '13' | '12' | '24' | '34' | 'all'
             method3Dir: 1,             // 1 (+1 shift) | -1 (-1 shift)
             method45Progressive: true, // true (+1,+2,+3...) | false (fixed +1/-1)
-            chaoticMode: 'notes',      // 'notes' (recognizes screenshot walkthrough examples) | 'math' (strict QWERTY index math)
-            tableVariant: 'standard'   // 'standard' | 'notes' | 'legacy'
+            chaoticMode: 'notes'       // 'notes' (recognizes screenshot walkthrough examples) | 'math' (strict QWERTY index math)
         };
 
         function getActiveTable() {
-            if (state.tableVariant === 'notes') return NUMCO_DATA_NOTES;
-            if (state.tableVariant === 'legacy') return NUMCO_DATA_LEGACY;
-            return NUMCO_DATA_STANDARD;
+            return NUMCO_DATA;
         }
 
         // Shift a lowercase letter along the QWERTY sequence ("qwertyuiopasdfghjklzxcvbnm")
@@ -998,9 +944,7 @@ final deciphered text: hello`
             symbolPositions.forEach((sp, i) => {
                 const encodedLetter = chosenMatches[i].letter;
                 const shiftUsedDuringEncode = shiftsApplied[i];
-                const decodedLetter = state.tableVariant === 'legacy'
-                    ? encodedLetter
-                    : shiftQwerty(encodedLetter, -shiftUsedDuringEncode);
+                const decodedLetter = shiftQwerty(encodedLetter, -shiftUsedDuringEncode);
 
                 infoByCharIndex[sp.index] = {
                     symbol: sp.char,
@@ -1113,9 +1057,7 @@ final deciphered text: hello`
                     shiftAmount = CHAOTIC_SHIFTS[letterStep % 8];
                 }
 
-                const shiftedLetter = state.tableVariant === 'legacy'
-                    ? lower
-                    : shiftQwerty(lower, shiftAmount);
+                const shiftedLetter = shiftQwerty(lower, shiftAmount);
                 const entry = table.find(e => e.letter === shiftedLetter);
                 const sym = entry ? entry.cols[chosenCol] : ch;
 
@@ -1429,17 +1371,8 @@ final deciphered text: hello`
             }).join('');
 
             const rawPre = document.getElementById('rawChartPre');
-            const rawTitle = document.getElementById('rawKeyTitle');
             if (rawPre) {
                 rawPre.textContent = table.map(r => `${r.letter} = ${r.cols[0]} = ${r.cols[1]} = ${r.cols[2]} = ${r.cols[3]}`).join('\n');
-            }
-            if (rawTitle) {
-                const titles = {
-                    standard: "Rel's Raw Discord Alphabet Key (`q` → `m`):",
-                    notes: "Diddy Neko's OPPO Notes Alphabet Key (`q` → `m`):",
-                    legacy: "Old A–Z Alphabet Key (`a` → `z`):"
-                };
-                rawTitle.textContent = titles[state.tableVariant] || titles.standard;
             }
         }
 
@@ -1496,18 +1429,6 @@ final deciphered text: hello`
             document.getElementById('activeMethodHint').textContent = hints[methodNum] || '';
 
             updateControlVisibility();
-            processTranslation();
-        }
-
-        function setTableVariant(variant) {
-            state.tableVariant = variant;
-            ['standard', 'notes', 'legacy'].forEach(v => {
-                const btn = document.getElementById(`map-${v}`);
-                if (btn) {
-                    btn.className = `px-2.5 py-1 rounded font-mono border border-[#322f3e] ${v === variant ? 'btn-tab-active' : 'btn-tab-inactive'}`;
-                }
-            });
-            renderReferenceTable();
             processTranslation();
         }
 
@@ -1602,11 +1523,8 @@ final deciphered text: hello`
             document.getElementById('m6-notes').className = `px-2 py-0.5 rounded text-[11px] border border-[#322f3e] ${state.chaoticMode === 'notes' ? 'btn-tab-active' : 'btn-tab-inactive'}`;
         }
 
-        function loadSample(text, mode, methodNum, m3Dir, variant, chaoticPreset) {
+        function loadSample(text, mode, methodNum, m3Dir, chaoticPreset) {
             state.selectedColumn = mode === 'encode' ? 0 : 'auto';
-            if (variant) {
-                setTableVariant(variant);
-            }
             if (chaoticPreset) {
                 state.chaoticMode = chaoticPreset;
             }
@@ -1689,7 +1607,7 @@ final deciphered text: hello`
         window.onload = function () {
             renderReferenceTable();
             renderQwertyStrip('h');
-            loadSample('*~_\\]⁴∆', 'decipher', 6, 1, 'standard', 'notes');
+            loadSample('*~_\\]⁴∆', 'decipher', 6, 1, 'notes');
         };
     </script>
 </body>
